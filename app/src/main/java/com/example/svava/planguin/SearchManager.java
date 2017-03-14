@@ -11,5 +11,6 @@ public class SearchManager {
 
     public static List<User> search(String searchString) {
         return new ArrayList<User>();
+        //hæ
     }
 }
