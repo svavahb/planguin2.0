@@ -3,7 +3,6 @@ package com.example.svava.planguin;
 import org.joda.time.LocalDateTime;
 
 import java.util.*;
-import java.time.*;
 
 /**
  * Created by Svava on 14.03.17.
