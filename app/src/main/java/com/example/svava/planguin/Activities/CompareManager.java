@@ -1,4 +1,4 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Activities;
 
 /**
  * Created by Svava on 14.03.17.

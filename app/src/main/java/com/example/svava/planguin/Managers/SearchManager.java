@@ -1,4 +1,6 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Managers;
+
+import com.example.svava.planguin.Entities.User;
 
 import java.util.ArrayList;
 import java.util.List;

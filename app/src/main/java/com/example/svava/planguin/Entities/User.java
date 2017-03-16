@@ -1,4 +1,4 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Entities;
 
 import java.util.ArrayList;
 import java.util.List;

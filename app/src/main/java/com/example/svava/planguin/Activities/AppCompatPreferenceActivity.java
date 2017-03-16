@@ -1,4 +1,4 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

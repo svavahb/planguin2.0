@@ -1,4 +1,4 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Entities;
 
 import org.joda.time.LocalDateTime;
 
