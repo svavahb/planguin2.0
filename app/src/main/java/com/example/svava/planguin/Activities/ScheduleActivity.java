@@ -1,13 +1,15 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class GroupListActivity extends AppCompatActivity {
+import com.example.svava.planguin.R;
+
+public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_list);
+        setContentView(R.layout.activity_schedule);
     }
 }

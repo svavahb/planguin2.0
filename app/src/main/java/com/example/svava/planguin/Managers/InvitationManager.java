@@ -1,4 +1,4 @@
-package com.example.svava.planguin;
+package com.example.svava.planguin.Managers;
 
 /**
  * Created by Svava on 14.03.17.
