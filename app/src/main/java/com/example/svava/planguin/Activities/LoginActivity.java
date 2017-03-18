@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.svava.planguin.Managers.UserManager;
 import com.example.svava.planguin.R;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+
+    UserManager userManager;
 
     /**
      * Id to identity READ_CONTACTS permission request.
