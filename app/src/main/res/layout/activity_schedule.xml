@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.svava.planguin.Activities.ScheduleActivity">
+    tools:context="com.example.svava.planguin.Activities.ScheduleActivity"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar"></include>
 
     <Button
-        android:id="@+id/prufa"
+        android:id="@+id/profile_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="prufa" />
+        android:layout_gravity="right"
+        android:text="@string/profile_button" />
 
 </LinearLayout>

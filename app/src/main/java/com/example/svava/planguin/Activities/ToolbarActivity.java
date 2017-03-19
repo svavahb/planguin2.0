@@ -12,7 +12,7 @@ import com.example.svava.planguin.R;
 
 public class ToolbarActivity extends AppCompatActivity {
 
-    private Button mInvitationButton;
+    private Button InvitationButton;
     private Button mSettingsButton;
 
     @Override
@@ -20,15 +20,11 @@ public class ToolbarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
 
-        /*mInvitationButton = (Button) findViewById(R.id.invitation_button);
-        mInvitationButton.setOnClickListener(new View.OnClickListener() {
+        /*InvitationButton = (Button) findViewById(R.id.invitation_button);
+        InvitationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ToolbarActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
-                //TextView myTextView = (TextView)findViewById(R.id.textView2);
-                //myTextView.setText("Button clicked");
-                //Intent myIntent = new Intent(v.getContext(), InvitationActivity.class);
-                //startActivityForResult(myIntent, 0);
             }
         });*/
 

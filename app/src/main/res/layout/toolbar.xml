@@ -1,31 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:weightSum="1"
     tools:context="com.example.svava.planguin.Activities.ToolbarActivity">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:padding="10dp"
-        android:text="Planguin!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/invitation_button"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Planguin!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+        <Button
+            android:id="@+id/settings_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/settings_button" />
+
+        <Button
+            android:id="@+id/invitation_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/invitation_button" />
+
+        <SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/invitation_button" />
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_button"/>
+        <Button
+            android:id="@+id/schedule_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/schedule_button" />
 
-</merge>
+        <Button
+            android:id="@+id/compare_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/compare_button" />
+
+        <Button
+            android:id="@+id/friendlist_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/friendlist_button" />
+
+        <Button
+            android:id="@+id/grouplist_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/grouplist_button" />
+    </LinearLayout>
+
+</LinearLayout>

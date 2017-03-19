@@ -90,5 +90,15 @@
     <string name="title_activity_sign_up">Sign in</string>
     <string name="invitation_button">invitation</string>
     <string name="settings_button">settings</string>
+    <string name="invitationlayoutfint">InvitationLayoutFínt</string>
+    <string name="schedule_button">schedule</string>
+    <string name="compare_button">compare</string>
+    <string name="friendlist_button">friends</string>
+    <string name="grouplist_button">groups</string>
+    <string name="schedule">Schedule</string>
+    <string name="compare">Compare</string>
+    <string name="friendlist">FriendList</string>
+    <string name="grouplist">GroupList</string>
+    <string name="profile_button">profile</string>
 
 </resources>
