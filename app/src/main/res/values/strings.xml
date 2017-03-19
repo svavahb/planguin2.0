@@ -88,4 +88,7 @@
         completions."
     </string>
     <string name="title_activity_sign_up">Sign in</string>
+    <string name="invitation_button">invitation</string>
+    <string name="settings_button">settings</string>
+
 </resources>
