@@ -1,6 +1,7 @@
 package com.example.svava.planguin.Managers;
 
 import android.preference.PreferenceActivity;
+import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.User;
 import java.util.ArrayList;
@@ -19,14 +20,16 @@ public class SearchManager {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    public static List<User> search(String searchString) throws JSONException {
+    public static String search(String searchString) throws JSONException {
 
-        client.get("localhost:8080/search/svava/"+searchString, new JsonHttpResponseHandler() {
+        final String result[] = new String[1];
+
+        client.get("https://planguinserver.herokuapp.com/search/svava/svava", new JsonHttpResponseHandler() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject user) {
-                    System.out.println(user);
+                public void onSuccess(int statusCode, Header[] headers, JSONArray user) {
+                    result[0] = user.toString();
                 }
         });
-        return new ArrayList<User>();
+        return result[0];
     }
 }
