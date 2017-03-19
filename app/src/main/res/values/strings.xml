@@ -99,6 +99,6 @@
     <string name="compare">Compare</string>
     <string name="friendlist">FriendList</string>
     <string name="grouplist">GroupList</string>
-    <string name="profile_button">profile</string>
+    <string name="profile_button"></string>
 
 </resources>

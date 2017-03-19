@@ -5,9 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.svava.planguin.Activities.FriendListActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <include layout="@layout/toolbar"></include>
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_weight="0.01" />
 
     <TextView
         android:id="@+id/textView3"
