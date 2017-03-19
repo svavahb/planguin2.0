@@ -19,17 +19,16 @@ import cz.msebera.android.httpclient.Header;
 public class SearchManager {
 
     private static AsyncHttpClient client = new AsyncHttpClient();
+    public static String result;
 
     public static String search(String searchString) throws JSONException {
 
-        final String result[] = new String[1];
-
-        client.get("https://planguinserver.herokuapp.com/search/svava/svava", new JsonHttpResponseHandler() {
+        client.get("https://planguinserver.herokuapp.com/search/svava/"+searchString, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray user) {
-                    result[0] = user.toString();
+                    result = user.toString();
                 }
         });
-        return result[0];
+        return result;
     }
 }

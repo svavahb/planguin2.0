@@ -16,7 +16,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
     SearchManager searchManager;
-    AsyncHttpClient client = new AsyncHttpClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         try {
-            Toast.makeText(SearchActivity.this, searchManager.search("svava"), Toast.LENGTH_SHORT).show();
+            Toast.makeText(SearchActivity.this, searchManager.search("svava"), Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
