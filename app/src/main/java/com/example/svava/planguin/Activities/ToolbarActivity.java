@@ -20,7 +20,7 @@ public class ToolbarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
 
-        mInvitationButton = (Button) findViewById(R.id.invitation_button);
+        /*mInvitationButton = (Button) findViewById(R.id.invitation_button);
         mInvitationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,7 +30,7 @@ public class ToolbarActivity extends AppCompatActivity {
                 //Intent myIntent = new Intent(v.getContext(), InvitationActivity.class);
                 //startActivityForResult(myIntent, 0);
             }
-        });
+        });*/
 
         mSettingsButton = (Button) findViewById(R.id.settings_button);
     }
