@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.example.svava.planguin.Entities.User;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.*;
 
 import org.json.*;
@@ -18,17 +20,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchManager {
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
     public static String result;
 
-    public static String search(String searchString) throws JSONException {
-
-        client.get("https://planguinserver.herokuapp.com/search/svava/"+searchString, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray user) {
-                    result = user.toString();
-                }
-        });
+    public static String search(String searchString){
         return result;
     }
 }
