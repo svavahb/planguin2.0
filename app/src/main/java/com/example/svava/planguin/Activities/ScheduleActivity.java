@@ -44,8 +44,56 @@ public class ScheduleActivity extends ToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+    }
 
-        InvitationButton = (Button) findViewById(R.id.invitation_button);
+    private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
+
+    public static Intent newIntent(Context packageContext, boolean scheduleButton) {
+        Intent i = new Intent(packageContext, ScheduleActivity.class);
+        i.putExtra(EXTRA_SCHEDULE_BUTTON, scheduleButton);
+        return i;
+    }
+
+    public void onClick(View v) {
+
+        Intent i;
+        int id = v.getId();
+
+        switch(id){
+            case R.id.compare_button:
+                i = new Intent(this, CompareActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.friendlist_button:
+                i = new Intent(this, FriendListActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.grouplist_button:
+                i = new Intent(this, GroupListActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.settings_button:
+                i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.invitation_button:
+                i = new Intent(this, InvitationActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            default:
+                i = new Intent(this, ScheduleActivity.class);
+                startActivity(i);
+                break;
+        }
+    }
+}
+
+        /*InvitationButton = (Button) findViewById(R.id.invitation_button);
         InvitationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,12 +159,3 @@ public class ScheduleActivity extends ToolbarActivity {
                 startActivity(i);
             }
         });*/
-    }
-    private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
-
-    public static Intent newIntent(Context packageContext, boolean scheduleButton) {
-        Intent i = new Intent(packageContext, ScheduleActivity.class);
-        i.putExtra(EXTRA_SCHEDULE_BUTTON, scheduleButton);
-        return i;
-    }
-}

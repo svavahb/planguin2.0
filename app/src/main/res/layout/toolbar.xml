@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/calendar"
+            android:onClick="onClick"
             android:text="@string/schedule_button"
             android:textColor="#c9c9c9"
             android:textSize="12sp" />
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/compare"
+            android:onClick="onClick"
             android:text="@string/compare_button"
             android:textColor="#c9c9c9"
             android:textSize="12sp" />
@@ -42,6 +44,7 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/friendlist"
+            android:onClick="onClick"
             android:text="@string/friendlist_button"
             android:textColor="#c9c9c9"
             android:textSize="12sp" />
@@ -52,6 +55,7 @@
             android:layout_width="71dp"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/grouplist"
+            android:onClick="onClick"
             android:text="@string/grouplist_button"
             android:textColor="#c9c9c9"
             android:textSize="12sp" />
@@ -67,14 +71,16 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:drawableStart="@drawable/settings" />
+                android:drawableStart="@drawable/settings"
+                android:onClick="onClick" />
 
             <Button
                 android:id="@+id/invitation_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:drawableStart="@drawable/invite" />
+                android:drawableStart="@drawable/invite"
+                android:onClick="onClick" />
 
         </LinearLayout>
 
