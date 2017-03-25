@@ -101,7 +101,7 @@ public class ScheduleActivity extends ToolbarActivity {
             }
         });
 
-        ProfileButton = (Button) findViewById(R.id.profile_button);
+        /*ProfileButton = (Button) findViewById(R.id.profile_button);
         ProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +110,7 @@ public class ScheduleActivity extends ToolbarActivity {
                 i.putExtra("activity_profile_button", profileButton);
                 startActivity(i);
             }
-        });
+        });*/
     }
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
 
