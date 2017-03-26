@@ -34,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'joda-time:joda-time:2.9.7'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.github.quivr:android-week-view:2.0.2'
 }
