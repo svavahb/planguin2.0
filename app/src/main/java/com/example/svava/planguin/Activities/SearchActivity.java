@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.SearchManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
@@ -41,7 +42,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchString = SearchInput.getText().toString();
-                Log.d("SearchActivity", searchString);
                 search(searchString);
             }
         });
@@ -54,15 +54,15 @@ public class SearchActivity extends AppCompatActivity {
         PlanguinRestClient.get("search/svava/"+searchString, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray users) {
-                JSONObject user;
-                String name;
+                JSONObject jsonuser;
+                boolean friendship;
                 try {
-                    // parse the response
-                    user = users.getJSONObject(0);
-                    name = user.getJSONObject("user").getString("username");
-                    Toast.makeText(SearchActivity.this, name, Toast.LENGTH_SHORT).show();
+                    // parse the user holder into a user object
+                    jsonuser = users.getJSONObject(0);
+                    friendship = jsonuser.getBoolean("friendship");
+                    User user = searchManager.parseJSONUser(jsonuser);
+                    Toast.makeText(SearchActivity.this, user.getUsername()+" "+friendship, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Toast.makeText(SearchActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
