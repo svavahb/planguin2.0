@@ -10,10 +10,6 @@
 
     <include layout="@layout/toolbar"></include>
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_weight="0.01" />
 
     <TextView
         android:id="@+id/textView3"
@@ -21,5 +17,10 @@
         android:layout_height="wrap_content"
         android:text="@string/friendlist"
         android:textSize="30sp" />
+
+    <ListView
+        android:id="@+id/friendlist_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

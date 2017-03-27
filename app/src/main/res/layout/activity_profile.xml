@@ -9,11 +9,12 @@
 
     <include layout="@layout/toolbar"></include>
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="30sp" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Profile" />
 
 </LinearLayout>

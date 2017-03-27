@@ -13,7 +13,6 @@
         android:background="@android:color/holo_blue_dark"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingEnd="2dp"
         tools:ignore="UselessParent">
 
         <Button
@@ -71,7 +70,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:drawableStart="@drawable/settings"
+                android:drawableEnd="@drawable/settings"
                 android:onClick="onClick" />
 
             <Button
@@ -79,7 +78,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:drawableStart="@drawable/invite"
+                android:drawableEnd="@drawable/invite"
                 android:onClick="onClick" />
 
         </LinearLayout>
