@@ -12,14 +12,20 @@ import android.widget.Toast;
 import com.alamkanak.weekview.WeekView;
 import com.example.svava.planguin.Entities.Group;
 import com.example.svava.planguin.Entities.Schedule;
+import com.example.svava.planguin.Entities.ScheduleItem;
+import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.ScheduleManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Activities.ToolbarActivity;
+import com.example.svava.planguin.Utils.JSONparser;
+import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -29,14 +35,16 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ScheduleActivity extends ToolbarActivity {
+public class ScheduleActivity extends AppCompatActivity implements MonthLoader.MonthChangeListener {
 
     ScheduleManager scheduleManager;
+    JSONparser jsonparser;
 
     private Button InvitationButton;
     private Button ScheduleButton;
@@ -59,170 +67,95 @@ public class ScheduleActivity extends ToolbarActivity {
     protected WeekView mWeekView;
     WeekView.EventClickListener mEventClickListener;
     WeekView.EventLongPressListener mEventLongPressListener;
+    List<WeekViewEvent> allEvents;
+    List<WeekViewEvent> ThisMonthsEvents;
 
-    MonthLoader.MonthChangeListener mMonthChangeListener = new MonthLoader.MonthChangeListener() {
+
+    public void onTest(int newYear, int newMonth) {
+        // Populate the week view with some events.
+
+
+        //List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+
+        /*Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 4);
+        startTime.set(Calendar.MINUTE, 20);
+        startTime.set(Calendar.MONTH, 3);
+        startTime.set(Calendar.YEAR, 2017);
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.set(Calendar.HOUR_OF_DAY, 5);
+        endTime.set(Calendar.MINUTE, 0);
+        WeekViewEvent event = new WeekViewEvent(1, "testiTEST", startTime, endTime);
+*/
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 5);
+        startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.MONTH, newMonth - 1);
+        startTime.set(Calendar.YEAR, newYear);
+        startTime.add(Calendar.DATE, 1);
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR_OF_DAY, 3);
+        endTime.set(Calendar.MONTH, newMonth - 1);
+        WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
+
+        //event.setColor(getResources().getColor(R.color.event_color_01));
+        allEvents.add(event);
+        //return events;
+
+        for (int i = 0; i < allEvents.size(); i++) {
+            if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear))
+                ThisMonthsEvents.add(allEvents.get(i));
+
+        }
+
+        //return ThisMonthsEvents;
+
+    }
+
+
         @Override
-        public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
             // Populate the week view with some events
             //List<WeekViewEvent> events = getEvents(newYear, newMonth);
-
-
-            List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+            //System.out.println("HAllóóóó");
+            //return allEvents;
+            //List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+/*
 
             Calendar startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 3);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth - 1);
-            startTime.set(Calendar.YEAR, newYear);
-            Calendar endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR, 1);
-            endTime.set(Calendar.MONTH, newMonth - 1);
-            WeekViewEvent event = new WeekViewEvent(1, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_01));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 3);
-            startTime.set(Calendar.MINUTE, 30);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.set(Calendar.HOUR_OF_DAY, 4);
-            endTime.set(Calendar.MINUTE, 30);
-            endTime.set(Calendar.MONTH, newMonth-1);
-            event = new WeekViewEvent(10, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_02));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 4);
-            startTime.set(Calendar.MINUTE, 20);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.set(Calendar.HOUR_OF_DAY, 5);
-            endTime.set(Calendar.MINUTE, 0);
-            event = new WeekViewEvent(10, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_03));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 5);
-            startTime.set(Calendar.MINUTE, 30);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 2);
-            endTime.set(Calendar.MONTH, newMonth-1);
-            event = new WeekViewEvent(2, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_02));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
             startTime.set(Calendar.HOUR_OF_DAY, 5);
             startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth - 1);
+            startTime.set(Calendar.MONTH, newMonth -1);
             startTime.set(Calendar.YEAR, newYear);
             startTime.add(Calendar.DATE, 1);
-            endTime = (Calendar) startTime.clone();
+            Calendar endTime = (Calendar) startTime.clone();
             endTime.add(Calendar.HOUR_OF_DAY, 3);
-            endTime.set(Calendar.MONTH, newMonth - 1);
-            event = new WeekViewEvent(3, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_03));
-            events.add(event);
+            endTime.set(Calendar.MONTH, newMonth-1);
+            WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
 
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.DAY_OF_MONTH, 15);
-            startTime.set(Calendar.HOUR_OF_DAY, 3);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 3);
-            event = new WeekViewEvent(4, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_04));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.DAY_OF_MONTH, 1);
-            startTime.set(Calendar.HOUR_OF_DAY, 3);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 3);
-            event = new WeekViewEvent(5, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_01));
-            events.add(event);
-
-            startTime = Calendar.getInstance();
-            startTime.set(Calendar.DAY_OF_MONTH, startTime.getActualMaximum(Calendar.DAY_OF_MONTH));
-            startTime.set(Calendar.HOUR_OF_DAY, 15);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth-1);
-            startTime.set(Calendar.YEAR, newYear);
-            endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 3);
-            event = new WeekViewEvent(5, "test0", startTime, endTime);
-            //event.setColor(getResources().getColor(R.color.event_color_02));
-            events.add(event);
-/*
-        //AllDay event
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 0);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 23);
-        event = new WeekViewEvent(7, "test0",null, startTime, endTime, true);
-        //event.setColor(getResources().getColor(R.color.event_color_04));
-        events.add(event);
-        events.add(event);
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, 8);
-        startTime.set(Calendar.HOUR_OF_DAY, 2);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.DAY_OF_MONTH, 10);
-        endTime.set(Calendar.HOUR_OF_DAY, 23);
-        event = new WeekViewEvent(8, "test0",null, startTime, endTime, true);
-        //event.setColor(getResources().getColor(R.color.event_color_03));
-        events.add(event);
-
-        // All day event until 00:00 next day
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.DAY_OF_MONTH, 10);
-        startTime.set(Calendar.HOUR_OF_DAY, 0);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.SECOND, 0);
-        startTime.set(Calendar.MILLISECOND, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.DAY_OF_MONTH, 11);
-        event = new WeekViewEvent(8, "test0", null, startTime, endTime, true);
-        //event.setColor(getResources().getColor(R.color.event_color_01));
-
-        startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 18);
-        startTime.set(Calendar.MINUTE, 30);
-        startTime.set(Calendar.MONTH, newMonth-1);
-        startTime.set(Calendar.YEAR, newYear);
-        endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 19);
-        endTime.set(Calendar.MINUTE, 30);
-        endTime.set(Calendar.MONTH, newMonth-1);
-        event = new WeekViewEvent(22, "test0", startTime, endTime);
-        //event.setColor(getResources().getColor(R.color.event_color_02));
-        events.add(event);
 */
-            return events;
-        }
-    };
+
+            //event.setColor(getResources().getColor(R.color.event_color_02));
+            //allEvents.add(event);
+            System.out.println("all"+allEvents);
+
+
+
+            for (int i = 0; i < allEvents.size(); i++) {
+                System.out.println(allEvents.get(i).getStartTime().get(Calendar.MONTH)+" "+newMonth);
+                if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear))
+                    ThisMonthsEvents.add(allEvents.get(i));
+            }
+
+            System.out.println("THIS "+ThisMonthsEvents);
+
+            mWeekView.notifyDatasetChanged();
+
+            return ThisMonthsEvents;
+
+         }
+
+
 
 
 
@@ -230,8 +163,8 @@ public class ScheduleActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        //new com.alamkanak.weekview.R() ;
-        //com.alamkanak.weekview.R myR = new com.alamkanak.weekview.R();
+        allEvents = new ArrayList<>();
+        ThisMonthsEvents = new ArrayList<>();
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
@@ -241,22 +174,47 @@ public class ScheduleActivity extends ToolbarActivity {
 
         // The week view has infinite scrolling horizontally. We have to provide the events of a
         // month every time the month changes on the week view.
-        mWeekView.setMonthChangeListener(mMonthChangeListener);
+        mWeekView.setMonthChangeListener(this);
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(mEventLongPressListener);
 
-        /*
-        MonthLoader.MonthChangeListener mMonthChangeListener = new MonthLoader.MonthChangeListener() {
+
+        PlanguinRestClient.get("home?loggedInUser=svava",new RequestParams(), new JsonHttpResponseHandler(){
             @Override
-            public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-                // Populate the week view with some events.
-                List<WeekViewEvent> events = getEvents(newYear, newMonth);
-                return events;
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
+                try {
+                    Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
+                    List<ScheduleItem> scheduleItems = schedule.getItems();
+                    for (int i = 0; i < scheduleItems.size(); i++) {
+                        System.out.println(scheduleItems.get(i));
+
+                    }
+                    allEvents.clear();
+                    Calendar startTime = Calendar.getInstance();
+                    startTime.set(Calendar.HOUR_OF_DAY, 5);
+                    startTime.set(Calendar.MINUTE, 0);
+                    startTime.set(Calendar.MONTH, 3);
+                    startTime.set(Calendar.YEAR, 2017);
+                    startTime.add(Calendar.DATE, 1);
+                    Calendar endTime = (Calendar) startTime.clone();
+                    endTime.add(Calendar.HOUR_OF_DAY, 3);
+                    endTime.set(Calendar.MONTH, 3);
+                    WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
+                    allEvents.add(event);
+                    //ThisMonthsEvents.clear();
+
+                    //onTest(3,2017);
+                    //mMonthChangeListener.onMonthChange(3,2017);
+                    mWeekView.notifyDatasetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        };
-        */
+        });
     }
+
 
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
 

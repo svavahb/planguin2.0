@@ -20,12 +20,15 @@ public class JSONparser {
 
     public static User parseUser(JSONObject json) throws JSONException {
         User user = new User();
-        JSONObject userjson = json.getJSONObject("user");
-        user.setUserId(userjson.optInt("userId"));
-        user.setUsername(userjson.optString("username"));
-        user.setPassword(userjson.optString("password"));
-        user.setPhoto(userjson.optString("photo"));
-        user.setSchool(userjson.optString("school"));
+        JSONObject userjson = json.optJSONObject("user");
+        if (!json.isNull("user")) {
+            user.setUserId(userjson.optInt("userId"));
+            user.setUsername(userjson.optString("username"));
+            user.setPassword(userjson.optString("password"));
+            user.setPhoto(userjson.optString("photo"));
+            user.setSchool(userjson.optString("school"));
+        }
+
 
         return user;
     }
