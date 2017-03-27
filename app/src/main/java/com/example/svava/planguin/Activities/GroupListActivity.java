@@ -33,7 +33,7 @@ public class GroupListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(GroupListActivity.this, GroupPageActivity.class);
                 startActivity(intent);
-                //overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0);
             }
         });
 

@@ -35,7 +35,7 @@ public class FriendListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(FriendListActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                //overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0);
             }
         });
 
