@@ -16,7 +16,7 @@ public class ScheduleItem {
     private int userid;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private List<User> taggedUsers;
+    private List<String> taggedUsers;
     private int weekNo;
     private int year;
     private String location;
@@ -64,11 +64,11 @@ public class ScheduleItem {
         this.endTime = endTime;
     }
 
-    public List<User> getTaggedUsers() {
+    public List<String> getTaggedUsers() {
         return taggedUsers;
     }
 
-    public void setTaggedUsers(List<User> taggedUsers) {
+    public void setTaggedUsers(List<String> taggedUsers) {
         this.taggedUsers = taggedUsers;
     }
 

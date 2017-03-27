@@ -9,7 +9,7 @@ import java.util.List;
 
 public class User {
 
-    private List<User> friends = new ArrayList<>();
+    private List<String> friends = new ArrayList<>();
     private List<Group> groups = new ArrayList<>();
     private String username;
     private int userId;
@@ -18,9 +18,9 @@ public class User {
     private String password;
     private String passwordConfirm;  // Only used in signup  - má taka upp
 
-    public List<User> getFriends(){return friends;}
-    public void addFriend(User user){friends.add(user);}
-    public void removeFriend(User user){friends.remove(user);}
+    public List<String> getFriends(){return friends;}
+    public void addFriend(String user){friends.add(user);}
+    public void removeFriend(String user){friends.remove(user);}
 
     public List<Group> getGroups() {return groups;}
     public void addGroup(Group group) {groups.add(group);}

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Group {
     private int grpId;
-    private List<User> members = new ArrayList<>();
+    private List<String> members = new ArrayList<>();
     private String grpName;
 
     public int getGrpId(){return grpId;}
@@ -18,9 +18,9 @@ public class Group {
     public String getGrpName(){return grpName;}
     public void setGrpName(String grpName){this.grpName = grpName;}
 
-    public List<User> getMembers(){return members;}
-    public void addMember(User user){members.add(user);}
-    public void removeMember(User user){members.remove(user);}
+    public List<String> getMembers(){return members;}
+    public void addMember(String user){members.add(user);}
+    public void removeMember(String user){members.remove(user);}
 
     public void changeName(String newname){
         grpName = newname;

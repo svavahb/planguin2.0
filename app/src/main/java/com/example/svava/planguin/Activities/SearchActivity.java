@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.SearchManager;
 import com.example.svava.planguin.R;
+import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -25,6 +26,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
     SearchManager searchManager;
+    JSONparser jsonParser;
     private Button SearchButton;
     private String searchString;
     private EditText SearchInput;
@@ -60,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
                     // parse the user holder into a user object
                     jsonuser = users.getJSONObject(0);
                     friendship = jsonuser.getBoolean("friendship");
-                    User user = searchManager.parseJSONUser(jsonuser);
+                    User user = jsonParser.parseUser(jsonuser);
                     Toast.makeText(SearchActivity.this, user.getUsername()+" "+friendship, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();

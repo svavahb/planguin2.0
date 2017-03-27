@@ -20,17 +20,4 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchManager {
 
-    public static String result;
-
-    public static User parseJSONUser(JSONObject json) throws JSONException {
-        User user = new User();
-        JSONObject userjson = json.getJSONObject("user");
-        user.setUserId(userjson.optInt("userId"));
-        user.setUsername(userjson.optString("username"));
-        user.setPassword(userjson.optString("password"));
-        user.setPhoto(userjson.optString("photo"));
-        user.setSchool(userjson.optString("school"));
-
-        return user;
-    }
 }
