@@ -26,5 +26,8 @@
         app:dayBackgroundColor="#05000000"
         app:todayBackgroundColor="#1848adff"
        app:headerColumnBackground="#ffffffff"
-       app:dayNameLength="length_short" />
+       app:dayNameLength="length_short"
+       app:minTime="8"
+       app:maxTime="16"
+       app:autoLimitTime="true" />
 </LinearLayout>
