@@ -99,6 +99,8 @@ public class JSONparser {
 
         group.setGrpId(jsongroup.optInt("grpId"));
 
+        group.setGrpName(jsongroup.optString("grpName"));
+
         // Parse member list
         JSONArray jsonmembers = jsongroup.optJSONArray("members");
         for(int i=0; i<jsonmembers.length(); i++) {
