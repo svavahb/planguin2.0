@@ -10,31 +10,13 @@
 
     <include layout="@layout/toolbar"></include>
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:text="@string/friendlist"
-            android:textSize="30sp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/find_friends_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:clickable="true"
-            app:backgroundTint="@android:color/background_light"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_input_add" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:text="@string/friendlist"
+        android:textSize="30sp" />
 
     <ListView
         android:id="@+id/friendlist_list"
