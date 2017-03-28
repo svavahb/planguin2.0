@@ -4,6 +4,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.entity.StringEntity;
+
 /**
  * Created by Svava on 25.03.17.
  */
@@ -18,8 +20,8 @@ public class PlanguinRestClient {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void post(String url, RequestParams params, JsonHttpResponseHandler responseHandler) {
-        client.post(getAbsoluteUrl(url), params, responseHandler);
+    public static void post(String url, StringEntity se, String encoding, JsonHttpResponseHandler responseHandler) {
+        client.post(null, getAbsoluteUrl(url), se, encoding, responseHandler);
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
