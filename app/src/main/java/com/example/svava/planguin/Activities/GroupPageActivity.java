@@ -4,18 +4,70 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.svava.planguin.Entities.Group;
 import com.example.svava.planguin.Managers.GroupManager;
 import com.example.svava.planguin.R;
+import com.example.svava.planguin.Utils.JSONparser;
+import com.example.svava.planguin.Utils.PlanguinRestClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class GroupPageActivity extends AppCompatActivity {
 
     GroupManager groupManager;
+    JSONparser jsonparser;
+    List<String> groupFriends = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, groupFriends);
+
+        // TextView textView = (TextView) findViewById(R.id.GroupName);
+        // textView.setAdapter(adapter); ???
+
+        ListView listView = (ListView) findViewById(R.id.groupPage_list);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Intent intent = new Intent(GroupPageActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        PlanguinRestClient.get("getGroups/svava", new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray jsongroups){
+                Group group = jsonparser.parseGroup(jsongroups.optJSONObject(0));
+                List<String> members = group.getMembers();
+                groupFriends.addAll(members);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {
+                System.out.println(statusCode+" "+e);
+            }
+        });
     }
 
     public void onClick(View v) {
