@@ -12,20 +12,48 @@ import android.widget.ListView;
 
 import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
+import com.example.svava.planguin.Utils.PlanguinRestClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class FriendListActivity extends AppCompatActivity {
 
     ProfileManager profileManager;
 
-    String[] users = new String[]{"Halldóra", "Þórunn", "Svava", "Þórdís"};
+    //String[] users = new String[]{"Halldóra", "Þórunn", "Svava", "Þórdís"};
+    List<String> friends = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PlanguinRestClient.get("getFriends/svava", new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray jsonfriends){
+                for(int i=0; i<jsonfriends.length(); i++) {
+                    String friend = jsonfriends.optString(i);
+                    friends.add(friend);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {
+                System.out.println(statusCode+" "+e);
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, users);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, friends);
 
         ListView listView = (ListView) findViewById(R.id.friendlist_list);
 

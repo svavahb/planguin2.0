@@ -15,23 +15,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.ScheduleActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Activities.FriendListActivity" />
         <activity android:name=".Activities.LaunchActivity">
+        </activity>
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.SearchActivity"/>
         <activity android:name=".Activities.InvitationActivity" />
         <activity android:name=".Activities.GroupListActivity" />
         <activity android:name=".Activities.GroupPageActivity" />

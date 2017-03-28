@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.svava.planguin.Activities.SearchActivity">
+    tools:context="com.example.svava.planguin.Activities.SearchActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"></include>
 
     <EditText
         android:id="@+id/editText_search"
@@ -12,15 +15,19 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="45dp" />
+        android:text="Name" />
 
     <Button
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="103dp" />
-</android.support.constraint.ConstraintLayout>
+        android:text="Search"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_list">
+    </ListView>
+
+
+</LinearLayout>

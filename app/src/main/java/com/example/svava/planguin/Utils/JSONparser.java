@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.*;
+
 /**
  * Created by Svava on 27.03.17.
  */
@@ -48,7 +50,7 @@ public class JSONparser {
         return schedule;
     }
 
-    public static ScheduleItem parseItem(JSONObject jsonitem) {
+    public static ScheduleItem parseItem(JSONObject jsonitem) throws JSONException {
         ScheduleItem item = new ScheduleItem();
 
         // Parse string and int fields
@@ -77,11 +79,19 @@ public class JSONparser {
         }
         item.setTaggedUsers(tagged);
 
-        // PARSA RESTINA
-        // dates: starttime, endtime
-        // array: taggedusers
+        item.setStartTime(parseDate(jsonitem.getJSONObject("startTime")));
+        item.setEndTime((parseDate(jsonitem.getJSONObject("endTime"))));
 
         return item;
+    }
+
+    public static LocalDateTime parseDate(JSONObject jsondate){
+        int year = jsondate.optInt("year");
+        int month = jsondate.optInt("monthValue");
+        int day = jsondate.optInt("dayOfMonth");
+        int hour = jsondate.optInt("hour");
+        int minute = jsondate.optInt("minute");
+        return new LocalDateTime(year,month,day,hour,minute);
     }
 
     public static Group parseGroup(JSONObject jsongroup) {
