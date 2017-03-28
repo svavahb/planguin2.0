@@ -43,8 +43,8 @@ public class GroupPageActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groupFriends);
 
-        // TextView textView = (TextView) findViewById(R.id.GroupName);
-        // textView.setAdapter(adapter); ???
+        TextView textView = (TextView) findViewById(R.id.GroupName);
+        textView.setText(currentGroup);
 
         ListView listView = (ListView) findViewById(R.id.groupPage_list);
         listView.setAdapter(adapter);
