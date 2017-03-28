@@ -37,6 +37,9 @@ public class GroupPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
 
+        final String currentGroup = getIntent().getStringExtra("GROUP_CLICKED");
+        System.out.println("current: "+currentGroup);
+
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groupFriends);
 
@@ -57,10 +60,16 @@ public class GroupPageActivity extends AppCompatActivity {
         PlanguinRestClient.get("getGroups/svava", new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsongroups){
-                Group group = jsonparser.parseGroup(jsongroups.optJSONObject(0));
-                List<String> members = group.getMembers();
-                groupFriends.addAll(members);
-                adapter.notifyDataSetChanged();
+                groupFriends.clear();
+                for(int i=0; i<jsongroups.length(); i++) {
+                    Group group = jsonparser.parseGroup(jsongroups.optJSONObject(i));
+                    System.out.println("http: "+group.getGrpName());
+                    if(group.getGrpName().equals(currentGroup)) {
+                        List<String> members = group.getMembers();
+                        groupFriends.addAll(members);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
             }
 
             @Override

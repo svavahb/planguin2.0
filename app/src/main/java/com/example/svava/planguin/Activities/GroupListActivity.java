@@ -41,12 +41,13 @@ public class GroupListActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groups);
 
-        ListView listView = (ListView) findViewById(R.id.grouplist_list);
+        final ListView listView = (ListView) findViewById(R.id.grouplist_list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(GroupListActivity.this, GroupPageActivity.class);
+                intent.putExtra("GROUP_CLICKED", listView.getItemAtPosition(position).toString());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
