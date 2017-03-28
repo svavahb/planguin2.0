@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
                 System.out.println(jsonresult);
                 if(jsonresult.optString("username").equals("true")) {
-                    // SETJA USER INFO Í SHAREDPREFERENCES og redirecta á schedule
+                    // SETJA USER INFO Í SHAREDPREFERENCES og redirecta á schedule bla
                     System.out.println("Virkaði");
                 }
                 else {
