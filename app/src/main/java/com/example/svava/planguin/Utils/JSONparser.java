@@ -23,6 +23,8 @@ public class JSONparser {
     public static User parseUser(JSONObject json) throws JSONException {
         User user = new User();
         JSONObject userjson = json.optJSONObject("user");
+        System.out.println("í parse: "+userjson);
+        //System.out.println("í parse username: "+userjson.optString("username"));
         if (!json.isNull("user")) {
             user.setUserId(userjson.optInt("userId"));
             user.setUsername(userjson.optString("username"));
@@ -30,8 +32,6 @@ public class JSONparser {
             user.setPhoto(userjson.optString("photo"));
             user.setSchool(userjson.optString("school"));
         }
-
-
         return user;
     }
 

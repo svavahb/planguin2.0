@@ -3,7 +3,12 @@ package com.example.svava.planguin.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,12 +37,14 @@ import android.widget.TextView;
 import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.UserManager;
 import com.example.svava.planguin.R;
+import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -58,6 +65,14 @@ public class LoginActivity extends AppCompatActivity {
 
     UserManager userManager;
 
+    SharedPreferences mySharedPreferences;
+    SharedPreferences.Editor editor;
+    int mode= Context.MODE_PRIVATE;
+
+    boolean loginfail;
+
+    JSONparser jsonparser = new JSONparser();
+
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
@@ -69,6 +84,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginfail = getIntent().getBooleanExtra("loginfail",false);
+
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
@@ -84,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.log_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +140,12 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        if(loginfail) {
+            mPasswordView.setError("Log in failed. Try again");
+            focusView = mPasswordView;
+            loginfail = false;
+        }
+
         // Check for a valid email address.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
@@ -151,8 +175,8 @@ public class LoginActivity extends AppCompatActivity {
         user.setUsername(username);
         user.setPassword(password);
 
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
+        final Gson gson = new Gson();
+        final String json = gson.toJson(user);
 
         StringEntity se = null;
         try {
@@ -162,18 +186,24 @@ public class LoginActivity extends AppCompatActivity {
         }
         se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        System.out.println(json);
+        System.out.println("userjsonið: "+json);
 
         PlanguinRestClient.post("login", se, "application/json", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
-                System.out.println(jsonresult);
-                if(jsonresult.optString("username").equals("true")) {
-                    // SETJA USER INFO Í SHAREDPREFERENCES og redirecta á schedule bla
+                if(!jsonresult.optString("username").equals("false")) {
+                    mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                    mySharedPreferences.edit().putString("username",jsonresult.optString("username")).commit();
+
+                    Intent intent = new Intent(LoginActivity.this, ScheduleActivity.class);
+                    startActivity(intent);
                     System.out.println("Virkaði");
                 }
                 else {
                     System.out.println("Virkaði ekki");
+                    Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                    intent.putExtra("loginfail", true);
+                    startActivity(intent);
                 }
             }
 
