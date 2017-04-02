@@ -14,16 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_weight="0.27">
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
             android:text="Grouplist"
-            android:textSize="30sp"
-            android:layout_weight="0.34" />
+            android:textSize="30sp"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/create_group_button"
