@@ -49,19 +49,9 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     ScheduleManager scheduleManager;
     JSONparser jsonparser;
 
-    private Button InvitationButton;
-    private Button ScheduleButton;
-    private Button CompareButton;
-    private Button FriendListButton;
-    private Button GroupListButton;
-    private Button ProfileButton;
+    private Button AddEventButton;
 
-    boolean invitationButton;
-    boolean scheduleButton;
-    boolean compareButton;
-    boolean friendlistButton;
-    boolean groupListButton;
-    boolean profileButton;
+
 
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
@@ -97,6 +87,23 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(mEventLongPressListener);
+
+        AddEventButton = (Button) findViewById(R.id.add_event_button);
+        AddEventButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(ScheduleActivity.this, AddEventActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+            }
+        });
+        /*
+        case R.id.add_event_button:
+                i = new Intent(this, AddEventActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+         */
 
         PlanguinRestClient.get("home?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
             @Override

@@ -15,9 +15,15 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Name"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="120dp" />
+
+    <DatePicker
+        android:id="@+id/simpleDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"/>
 
     <EditText
         android:id="@+id/startDate"
@@ -25,7 +31,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:text="Start Date"
+        android:hint="Start Date"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="176dp" />
 
@@ -35,7 +41,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time"
-        android:text="Start time"
+        android:hint="Start time"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="236dp" />
 
@@ -45,7 +51,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:text="End Date"/>
+        android:hint="End Date"/>
 
 
     <EditText
@@ -54,6 +60,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="time"
-        android:text="End time"/>
+        android:hint="End time"/>
+
+
+
 
 </LinearLayout>

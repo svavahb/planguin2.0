@@ -11,10 +11,9 @@
 
 
     <Button
-        android:id="@+id/addEvent"
+        android:id="@+id/add_event_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
         android:text="Add Event" />
 
     <com.alamkanak.weekview.WeekView
