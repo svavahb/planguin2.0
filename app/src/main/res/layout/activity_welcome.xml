@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.svava.planguin.Activities.WelcomeActivity">
+    android:background="@color/planguinColor"
+    tools:context="com.example.svava.planguin.Activities.WelcomeActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/planguin_logo"
+            android:layout_width="90dp"
+            android:layout_height="115dp"
+            android:layout_weight="0.60"
+            app:srcCompat="@drawable/planguin"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/planguin_logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/planguin_logo"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="140dp"
+            tools:layout_editor_absoluteY="71dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="281dp"
+        android:layout_height="78dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/welcome_text"
+        android:textColor="@android:color/black"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="284dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClick"
+        android:text="Sign Up"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="249dp" />
+
+    <Button
+        android:id="@+id/log_in_button"
+        android:layout_width="284dp"
+        android:layout_height="38dp"
+        android:onClick="onClick"
+        android:text="Log In"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="313dp"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

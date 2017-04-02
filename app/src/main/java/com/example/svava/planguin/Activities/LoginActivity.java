@@ -214,6 +214,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, ScheduleActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     System.out.println("Virkaði");
                 }
                 else {
