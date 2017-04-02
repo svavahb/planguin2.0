@@ -20,7 +20,7 @@ public class AddEventActivity extends AppCompatActivity {
         Intent i;
         int id = v.getId();
 
-        switch(id){
+        switch (id) {
             case R.id.compare_button:
                 i = new Intent(this, CompareActivity.class);
                 startActivity(i);
@@ -51,4 +51,5 @@ public class AddEventActivity extends AppCompatActivity {
                 startActivity(i);
                 break;
         }
+    }
 }
