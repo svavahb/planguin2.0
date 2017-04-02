@@ -106,6 +106,5 @@
     <string name="created_group_button">Create Group!</string>
     <string name="namegroup">Name your group</string>
     <string name="addfriendtogroup">Add friends to group</string>
-    <string name="addtogroup_button">Add to group!</string>
 
 </resources>

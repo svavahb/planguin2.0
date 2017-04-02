@@ -43,9 +43,6 @@ public class GroupPageActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groupFriends);
 
-        Bundle b = getIntent().getExtras();
-        String[] resultAtt = b.getStringArray("selectedItems");
-
         TextView textView = (TextView) findViewById(R.id.GroupName);
         textView.setText(currentGroup);
 
@@ -114,7 +111,7 @@ public class GroupPageActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.addfriendstogroup_button:
-                i = new Intent(this, AddFriendsToGroupActivity.class);
+                i = new Intent(this, FriendListActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
