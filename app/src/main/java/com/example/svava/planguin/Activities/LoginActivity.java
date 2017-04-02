@@ -207,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
         PlanguinRestClient.post("login", se, "application/json", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
+                System.out.println("úr db: "+jsonresult.optString("username"));
                 if(!jsonresult.optString("username").equals("false")) {
                     mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                     mySharedPreferences.edit().putString("username",jsonresult.optString("username")).commit();

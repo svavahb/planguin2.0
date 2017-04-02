@@ -1,7 +1,10 @@
 package com.example.svava.planguin.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,11 +71,15 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     WeekView.EventClickListener mEventClickListener;
     WeekView.EventLongPressListener mEventLongPressListener;
     List<WeekViewEvent> allEvents;
+    String loggedInUser;
 
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ScheduleActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
 
         scheduleManager = new ScheduleManager();
 
@@ -91,17 +98,14 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(mEventLongPressListener);
 
-
-        PlanguinRestClient.get("home?loggedInUser=svava",new RequestParams(), new JsonHttpResponseHandler(){
+        PlanguinRestClient.get("home?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
                 try {
                     allEvents.clear();
-
                     Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
                     List<ScheduleItem> scheduleItems = schedule.getItems();
                     for (int i = 0; i < scheduleItems.size(); i++) {
-                        System.out.println("item: "+scheduleItems.get(i));
                         WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
                         allEvents.add(event);
                     }
@@ -120,11 +124,9 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         List<WeekViewEvent> events = new ArrayList<>();
 
         for (int i = 0; i < allEvents.size(); i++) {
-            System.out.println(allEvents.get(i).getStartTime().get(Calendar.MONTH)+" "+newMonth);
             if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear)) {
                 events.add(allEvents.get(i));
                 Calendar start = allEvents.get(i).getStartTime();
-                System.out.println(start.get(Calendar.DAY_OF_MONTH)+" "+start.get(Calendar.MONTH));
             }
         }
 
