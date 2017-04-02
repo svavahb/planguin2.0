@@ -68,103 +68,15 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     WeekView.EventClickListener mEventClickListener;
     WeekView.EventLongPressListener mEventLongPressListener;
     List<WeekViewEvent> allEvents;
-    List<WeekViewEvent> ThisMonthsEvents;
 
 
-    public void onTest(int newYear, int newMonth) {
-        // Populate the week view with some events.
-
-
-        //List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-
-        /*Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 4);
-        startTime.set(Calendar.MINUTE, 20);
-        startTime.set(Calendar.MONTH, 3);
-        startTime.set(Calendar.YEAR, 2017);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.set(Calendar.HOUR_OF_DAY, 5);
-        endTime.set(Calendar.MINUTE, 0);
-        WeekViewEvent event = new WeekViewEvent(1, "testiTEST", startTime, endTime);
-*/
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, 5);
-        startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth - 1);
-        startTime.set(Calendar.YEAR, newYear);
-        startTime.add(Calendar.DATE, 1);
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR_OF_DAY, 3);
-        endTime.set(Calendar.MONTH, newMonth - 1);
-        WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
-
-        //event.setColor(getResources().getColor(R.color.event_color_01));
-        allEvents.add(event);
-        //return events;
-
-        for (int i = 0; i < allEvents.size(); i++) {
-            if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear))
-                ThisMonthsEvents.add(allEvents.get(i));
-
-        }
-
-        //return ThisMonthsEvents;
-
-    }
-
-
-        @Override
-        public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-            // Populate the week view with some events
-            //List<WeekViewEvent> events = getEvents(newYear, newMonth);
-            //System.out.println("HAllóóóó");
-            //return allEvents;
-            //List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-/*
-
-            Calendar startTime = Calendar.getInstance();
-            startTime.set(Calendar.HOUR_OF_DAY, 5);
-            startTime.set(Calendar.MINUTE, 0);
-            startTime.set(Calendar.MONTH, newMonth -1);
-            startTime.set(Calendar.YEAR, newYear);
-            startTime.add(Calendar.DATE, 1);
-            Calendar endTime = (Calendar) startTime.clone();
-            endTime.add(Calendar.HOUR_OF_DAY, 3);
-            endTime.set(Calendar.MONTH, newMonth-1);
-            WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
-
-*/
-
-            //event.setColor(getResources().getColor(R.color.event_color_02));
-            //allEvents.add(event);
-            System.out.println("all"+allEvents);
-
-
-
-            for (int i = 0; i < allEvents.size(); i++) {
-                System.out.println(allEvents.get(i).getStartTime().get(Calendar.MONTH)+" "+newMonth);
-                if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear))
-                    ThisMonthsEvents.add(allEvents.get(i));
-            }
-
-            System.out.println("THIS "+ThisMonthsEvents);
-
-            mWeekView.notifyDatasetChanged();
-
-            return ThisMonthsEvents;
-
-         }
-
-
-
-
-
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
+        scheduleManager = new ScheduleManager();
+
         allEvents = new ArrayList<>();
-        ThisMonthsEvents = new ArrayList<>();
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
@@ -184,28 +96,15 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
                 try {
+                    allEvents.clear();
+
                     Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
                     List<ScheduleItem> scheduleItems = schedule.getItems();
                     for (int i = 0; i < scheduleItems.size(); i++) {
-                        System.out.println(scheduleItems.get(i));
-
+                        System.out.println("item: "+scheduleItems.get(i));
+                        WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
+                        allEvents.add(event);
                     }
-                    allEvents.clear();
-                    Calendar startTime = Calendar.getInstance();
-                    startTime.set(Calendar.HOUR_OF_DAY, 5);
-                    startTime.set(Calendar.MINUTE, 0);
-                    startTime.set(Calendar.MONTH, 3);
-                    startTime.set(Calendar.YEAR, 2017);
-                    startTime.add(Calendar.DATE, 1);
-                    Calendar endTime = (Calendar) startTime.clone();
-                    endTime.add(Calendar.HOUR_OF_DAY, 3);
-                    endTime.set(Calendar.MONTH, 3);
-                    WeekViewEvent event = new WeekViewEvent(3, "test0", startTime, endTime);
-                    allEvents.add(event);
-                    //ThisMonthsEvents.clear();
-
-                    //onTest(3,2017);
-                    //mMonthChangeListener.onMonthChange(3,2017);
                     mWeekView.notifyDatasetChanged();
 
                 } catch (JSONException e) {
@@ -215,6 +114,23 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         });
     }
 
+    @Override
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+        // Populate the week view with some events
+        List<WeekViewEvent> events = new ArrayList<>();
+
+        for (int i = 0; i < allEvents.size(); i++) {
+            System.out.println(allEvents.get(i).getStartTime().get(Calendar.MONTH)+" "+newMonth);
+            if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear)) {
+                events.add(allEvents.get(i));
+                Calendar start = allEvents.get(i).getStartTime();
+                System.out.println(start.get(Calendar.DAY_OF_MONTH)+" "+start.get(Calendar.MONTH));
+            }
+        }
+
+        return events;
+
+     }
 
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
 
@@ -262,72 +178,4 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         }
     }
 
-
 }
-
-        /*InvitationButton = (Button) findViewById(R.id.invitation_button);
-        InvitationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(ScheduleActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(ScheduleActivity.this, InvitationActivity.class);
-
-                i.putExtra("activity_invitation_button", invitationButton);
-                startActivity(i);
-            }
-        });
-
-        ScheduleButton = (Button) findViewById(R.id.schedule_button);
-        ScheduleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ScheduleActivity.this, ScheduleActivity.class);
-
-                i.putExtra("activity_schedule_button", scheduleButton);
-                startActivity(i);
-            }
-        });
-
-        CompareButton = (Button) findViewById(R.id.compare_button);
-        CompareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ScheduleActivity.this, CompareActivity.class);
-
-                i.putExtra("activity_compare_button", compareButton);
-                startActivity(i);
-            }
-        });
-
-        FriendListButton = (Button) findViewById(R.id.friendlist_button);
-        FriendListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ScheduleActivity.this, FriendListActivity.class);
-
-                i.putExtra("activity_friendlist_button", friendlistButton);
-                startActivity(i);
-            }
-        });
-
-        GroupListButton = (Button) findViewById(R.id.grouplist_button);
-        GroupListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ScheduleActivity.this, GroupListActivity.class);
-
-                i.putExtra("activity_grouplist_button", groupListButton);
-                startActivity(i);
-            }
-        });
-
-        /*ProfileButton = (Button) findViewById(R.id.profile_button);
-        ProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ScheduleActivity.this, ProfileActivity.class);
-
-                i.putExtra("activity_profile_button", profileButton);
-                startActivity(i);
-            }
-        });*/
