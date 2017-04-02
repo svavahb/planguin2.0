@@ -13,7 +13,7 @@
         android:layout_width="158dp"
         android:layout_height="239dp"
         android:background="@color/planguinColor"
-        app:srcCompat="@drawable/planguin_fullsize"
+        app:srcCompat="@drawable/planguin"
         tools:layout_editor_absoluteX="113dp"
         tools:layout_editor_absoluteY="164dp" />
 </android.support.constraint.ConstraintLayout>
