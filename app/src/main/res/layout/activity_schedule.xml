@@ -10,10 +10,17 @@
     <include layout="@layout/toolbar"></include>
 
 
-   <com.alamkanak.weekview.WeekView
+    <Button
+        android:id="@+id/addEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Add Event" />
+
+    <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:eventTextColor="@android:color/white"
         app:textSize="12sp"
         app:hourHeight="50dp"
@@ -25,6 +32,10 @@
         app:headerRowBackgroundColor="#ffefefef"
         app:dayBackgroundColor="#05000000"
         app:todayBackgroundColor="#1848adff"
-       app:headerColumnBackground="#ffffffff"
-       app:dayNameLength="length_short" />
+        app:headerColumnBackground="#ffffffff"
+        app:dayNameLength="length_short"
+        android:layout_weight="1"
+        />
+
+
 </LinearLayout>
