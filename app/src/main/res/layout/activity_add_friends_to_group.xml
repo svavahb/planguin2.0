@@ -26,8 +26,8 @@
 
     <ListView
         android:id="@+id/friendlist_checklist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
     <Button
         android:id="@+id/addtogroup_button"
