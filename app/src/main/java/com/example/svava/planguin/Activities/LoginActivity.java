@@ -79,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    View focusView;
+    boolean cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+        cancel = false;
+        focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -153,21 +155,37 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            loginCheck(username, password);
-        }
+        checkUsername(username,password);
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
+    }
+
+    private void checkUsername(final String username, final String password) {
+        PlanguinRestClient.get("usernameExists/"+username, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
+                if(!jsonresult.optString("username").equals("EXISTS")) {
+                    mUsernameView.setError("This username does not exist");
+                    focusView = mUsernameView;
+                    focusView.requestFocus();
+                }
+                else if(cancel) {
+                    //focusView.requestFocus();
+                }
+                else {
+                    showProgress(true);
+                    loginCheck(username, password);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                System.out.println(statusCode+" "+e+" "+errorResponse);
+            }
+        });
     }
 
     private void loginCheck(String username, String password) {
@@ -185,8 +203,6 @@ public class LoginActivity extends AppCompatActivity {
             // handle exceptions properly!
         }
         se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-
-        System.out.println("userjsonið: "+json);
 
         PlanguinRestClient.post("login", se, "application/json", new JsonHttpResponseHandler() {
             @Override
