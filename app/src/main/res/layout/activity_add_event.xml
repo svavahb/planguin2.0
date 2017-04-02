@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.svava.planguin.Activities.AddEventActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"></include>
+
+    <EditText
+        android:id="@+id/eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+    <DatePicker
+        android:id="@+id/simpleDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"/>
+
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="Start Date"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <EditText
+        android:id="@+id/startTime"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:hint="Start time"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="236dp" />
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="End Date"/>
+
+
+    <EditText
+        android:id="@+id/endTime"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        android:hint="End time"/>
+
+
+
+
+</LinearLayout>

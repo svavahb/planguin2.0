@@ -227,6 +227,7 @@ public class SignUpActivity extends AppCompatActivity{
                 editor.commit();
                 Intent intent = new Intent(SignUpActivity.this, ScheduleActivity.class);
                 startActivity(intent);
+                overridePendingTransition(0, 0);
             }
 
             @Override

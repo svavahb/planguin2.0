@@ -106,6 +106,11 @@
     <string name="created_group_button">Create Group!</string>
     <string name="namegroup">Name your group</string>
     <string name="addfriendtogroup">Add friends to group</string>
+<<<<<<< HEAD
     <string name="addtogroup_button">Add to group!</string>
+=======
+    <string name="welcome_text">Welcome to Planguin, your new favourite scheduling app! Please log in, or create your account by signing up.</string>
+    <string name="planguin_logo">PLANGUIN</string>
+>>>>>>> origin/master
 
 </resources>

@@ -36,7 +36,6 @@ public class SearchActivity extends AppCompatActivity {
     private Button SearchButton;
     private String searchString;
     private EditText SearchInput;
-    private boolean searchButton;
 
     private List<String> resultList = new ArrayList<>();
     ArrayAdapter<String> adapter;
