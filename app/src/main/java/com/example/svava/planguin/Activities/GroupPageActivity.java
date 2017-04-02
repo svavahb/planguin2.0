@@ -110,6 +110,11 @@ public class GroupPageActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
+            case R.id.addfriendstogroup_button:
+                i = new Intent(this, FriendListActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
             default:
                 i = new Intent(this, GroupListActivity.class);
                 startActivity(i);

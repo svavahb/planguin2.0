@@ -69,14 +69,6 @@ public class FriendListActivity extends AppCompatActivity {
 
     }
 
-    private static final String EXTRA_FRIENDLIST_BUTTON = "friendlistButton";
-
-    public static Intent newIntent(Context packageContext, boolean friendslistButton){
-        Intent i = new Intent(packageContext, FriendListActivity.class);
-        i.putExtra(EXTRA_FRIENDLIST_BUTTON, friendslistButton);
-        return i;
-    }
-
     public void onClick(View v) {
 
         Intent i;

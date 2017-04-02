@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.svava.planguin.Activities.GroupPageActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.example.svava.planguin.Activities.GroupPageActivity">
 
     <include layout="@layout/toolbar"></include>
 
@@ -13,10 +13,20 @@
         android:id="@+id/GroupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
         android:textAlignment="center"
-        tools:text="Hópur"/>
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        tools:text="Hópur" />
+
+    <Button
+        android:id="@+id/addfriendstogroup_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:onClick="onClick"
+        android:text="@string/addfriendtogroup" />
 
     <ListView
         android:id="@+id/groupPage_list"

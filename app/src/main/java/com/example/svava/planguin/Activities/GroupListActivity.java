@@ -71,15 +71,6 @@ public class GroupListActivity extends AppCompatActivity {
         });
 
     }
-
-    private static final String EXTRA_GROUPLIST_BUTTON = "grouplistButton";
-
-    public static Intent newIntent(Context packageContext, boolean grouplistButton){
-        Intent i = new Intent(packageContext, GroupListActivity.class);
-        i.putExtra(EXTRA_GROUPLIST_BUTTON, grouplistButton);
-        return i;
-    }
-
     public void onClick(View v) {
 
         Intent i;
@@ -91,13 +82,13 @@ public class GroupListActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.friendlist_button:
-                i = new Intent(this, FriendListActivity.class);
+            case R.id.schedule_button:
+                i = new Intent(this, ScheduleActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.schedule_button:
-                i = new Intent(this, ScheduleActivity.class);
+            case R.id.friendlist_button:
+                i = new Intent(this, FriendListActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
@@ -110,6 +101,11 @@ public class GroupListActivity extends AppCompatActivity {
                 i = new Intent(this, InvitationActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
+                break;
+            case R.id.create_group_button:
+                i = new Intent(this, CreateGroupActivity.class);
+                startActivity(i);
+                overridePendingTransition(0,0);
                 break;
             default:
                 i = new Intent(this, GroupListActivity.class);
