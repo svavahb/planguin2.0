@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/datetimepicker_button"
+        android:id="@+id/submitevent_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"

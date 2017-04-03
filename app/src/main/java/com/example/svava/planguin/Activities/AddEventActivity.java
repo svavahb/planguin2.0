@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.alamkanak.weekview.WeekViewEvent;
 import com.example.svava.planguin.R;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -66,6 +67,16 @@ public class AddEventActivity extends AppCompatActivity {
                 break;
             case R.id.invitation_button:
                 i = new Intent(this, InvitationActivity.class);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.submitevent_button:
+                i = new Intent(this, ScheduleActivity.class);
+                int hours_Start =simpleTimePicker_Start.getCurrentHour();
+                //int minutes_Start = simpleTimePicker_Start.getCurrentMinute();
+
+
+                System.out.println("start hour"+hours_Start);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
