@@ -20,7 +20,7 @@ import org.joda.time.*;
 
 public class JSONparser {
 
-    public static User parseUser(JSONObject json) throws JSONException {
+    public User parseUser(JSONObject json) throws JSONException {
         User user = new User();
         JSONObject userjson = json.optJSONObject("user");
         System.out.println("í parse: "+userjson);
@@ -35,7 +35,7 @@ public class JSONparser {
         return user;
     }
 
-    public static Schedule parseSchedule(JSONObject jsonSched) throws JSONException {
+    public Schedule parseSchedule(JSONObject jsonSched) throws JSONException {
         Schedule schedule = new Schedule();
 
         //parse the user
@@ -47,10 +47,13 @@ public class JSONparser {
         for (int i=0; i<jsonItems.length(); i++) {
             schedule.addItem(parseItem(jsonItems.getJSONObject(i)));
         }
+
+        System.out.println("jsonarray: "+jsonItems.length());
+
         return schedule;
     }
 
-    public static ScheduleItem parseItem(JSONObject jsonitem) throws JSONException {
+    public ScheduleItem parseItem(JSONObject jsonitem) throws JSONException {
         ScheduleItem item = new ScheduleItem();
 
         // Parse string and int fields
@@ -85,7 +88,7 @@ public class JSONparser {
         return item;
     }
 
-    public static LocalDateTime parseDate(JSONObject jsondate){
+    public LocalDateTime parseDate(JSONObject jsondate){
         int year = jsondate.optInt("year");
         int month = jsondate.optInt("monthValue");
         int day = jsondate.optInt("dayOfMonth");
@@ -94,7 +97,7 @@ public class JSONparser {
         return new LocalDateTime(year,month,day,hour,minute);
     }
 
-    public static Group parseGroup(JSONObject jsongroup) {
+    public Group parseGroup(JSONObject jsongroup) {
         Group group = new Group();
 
         group.setGrpId(jsongroup.optInt("grpId"));

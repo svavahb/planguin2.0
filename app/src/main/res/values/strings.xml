@@ -99,7 +99,7 @@
     <string name="friendlist_button">friends</string>
     <string name="grouplist_button">groups</string>
     <string name="schedule">Schedule</string>
-    <string name="compare">Compare</string>
+    <string name="compare">Compare your schedule with a friend, or a group!</string>
     <string name="friendlist">FriendList</string>
     <string name="grouplist">GroupList</string>
     <string name="profile_button"></string>
@@ -109,5 +109,7 @@
     <string name="addtogroup_button">Add to group!</string>
     <string name="welcome_text">Welcome to Planguin, your new favourite scheduling app! Please log in, or create your account by signing up.</string>
     <string name="planguin_logo">PLANGUIN</string>
+    <string name="compare_friend">Compare with friend</string>
+    <string name="compare_group">COmpare with group</string>
 
 </resources>

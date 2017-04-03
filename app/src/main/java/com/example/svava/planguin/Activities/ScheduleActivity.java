@@ -47,7 +47,7 @@ import java.util.List;
 public class ScheduleActivity extends AppCompatActivity implements MonthLoader.MonthChangeListener {
 
     ScheduleManager scheduleManager;
-    JSONparser jsonparser;
+    JSONparser jsonparser = new JSONparser();
 
     private Button AddEventButton;
 
@@ -112,10 +112,13 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                     allEvents.clear();
                     Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
                     List<ScheduleItem> scheduleItems = schedule.getItems();
+                    System.out.println(scheduleItems);
                     for (int i = 0; i < scheduleItems.size(); i++) {
+                        System.out.println(scheduleItems.get(i).getTitle());
                         WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
                         allEvents.add(event);
                     }
+                    System.out.println(allEvents);
                     mWeekView.notifyDatasetChanged();
 
                 } catch (JSONException e) {
@@ -133,7 +136,6 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         for (int i = 0; i < allEvents.size(); i++) {
             if((allEvents.get(i).getStartTime().get(Calendar.MONTH) == newMonth)&&(allEvents.get(i).getStartTime().get(Calendar.YEAR) == newYear)) {
                 events.add(allEvents.get(i));
-                Calendar start = allEvents.get(i).getStartTime();
             }
         }
 
