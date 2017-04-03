@@ -5,6 +5,8 @@ import com.example.svava.planguin.Entities.Schedule;
 import com.example.svava.planguin.Entities.ScheduleItem;
 import com.example.svava.planguin.Entities.User;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,4 +41,11 @@ public class ScheduleManager {
 
         return event;
     }
+
+    public LocalDateTime parseTimeToDateTime(int startHour, int startMinute, int year, int month, int dayOfMonth){
+        LocalDateTime newLocalDateTime = new LocalDateTime(year, month, dayOfMonth, startHour, startMinute);
+        return newLocalDateTime;
+    }
+
+
 }
