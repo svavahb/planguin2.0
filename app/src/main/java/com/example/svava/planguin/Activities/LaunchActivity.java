@@ -24,20 +24,26 @@ public class LaunchActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LaunchActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-                if(loggedInUser.isEmpty()){
-                    Intent i = new Intent(LaunchActivity.this, WelcomeActivity.class);
-                    startActivity(i);
-                }
-                else {
-                    Intent i = new Intent(LaunchActivity.this, ScheduleActivity.class);
-                    startActivity(i);
+        Thread timerThread = new Thread(){
+            public void run(){
+                try{
+                    System.out.println("sleeping...");
+                    sleep(4000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                    System.out.println("wake up!");
+                    if(loggedInUser.isEmpty()){
+                        Intent i = new Intent(LaunchActivity.this, WelcomeActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(LaunchActivity.this, ScheduleActivity.class);
+                        startActivity(i);
+                    }
                 }
             }
-        }, 30);
-
-
+        };
+        timerThread.start();
     }
 }

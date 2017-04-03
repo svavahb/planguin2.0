@@ -21,6 +21,10 @@
             android:label="@string/title_activity_settings" />
         <activity android:name=".Activities.FriendListActivity" />
         <activity android:name=".Activities.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.SearchActivity">
@@ -34,10 +38,6 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.SignUpActivity"
