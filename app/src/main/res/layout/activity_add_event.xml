@@ -19,50 +19,71 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="120dp" />
 
-    <DatePicker
-        android:id="@+id/simpleDatePicker"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:datePickerMode="spinner"/>
+        android:text="Start Time" />
 
-    <EditText
-        android:id="@+id/startDate"
-        android:layout_width="165dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Start Date"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="176dp" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/startTime"
-        android:layout_width="165dp"
+        <TimePicker
+            android:id="@+id/simpleTimePicker_Start"
+            android:layout_width="166dp"
+            android:layout_height="144dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:timePickerMode="spinner" />
+
+        <DatePicker
+            android:id="@+id/simpleDatePicker_Start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:datePickerMode="spinner"
+            android:scaleX="0.9"
+            android:scaleY="0.9" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="0.00"
+        android:text="End Time" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:hint="Start time"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="236dp" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/endDate"
-        android:layout_width="170dp"
+        <TimePicker
+            android:id="@+id/simpleTimePicker_End"
+            android:layout_width="166dp"
+            android:layout_height="144dp"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:timePickerMode="spinner" />
+
+        <DatePicker
+            android:id="@+id/simpleDatePicker_End"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:datePickerMode="spinner"
+            android:scaleX="0.9"
+            android:scaleY="0.9" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/datetimepicker_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="End Date"/>
-
-
-    <EditText
-        android:id="@+id/endTime"
-        android:layout_width="169dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:hint="End time"/>
-
-
+        android:onClick="onClick"
+        android:text="Button" />
 
 
 </LinearLayout>
