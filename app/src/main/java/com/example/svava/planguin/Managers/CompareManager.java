@@ -1,9 +1,12 @@
 package com.example.svava.planguin.Managers;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Shader;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.example.svava.planguin.Entities.ScheduleItem;
+import com.example.svava.planguin.R;
 
 import java.util.Calendar;
 
@@ -29,7 +32,9 @@ public class CompareManager {
         endTime.set(Calendar.HOUR_OF_DAY, item.getEndTime().getHourOfDay());
         endTime.set(Calendar.MINUTE, item.getEndTime().getMinuteOfHour());
 
-        WeekViewEvent event = new WeekViewEvent(item.getId(), item.getTitle(), startTime, endTime);
+        WeekViewEvent event = new WeekViewEvent(item.getId(), " ", startTime, endTime);
+
+        event.setColor(Color.rgb(245,138,138));
 
         return event;
     }
