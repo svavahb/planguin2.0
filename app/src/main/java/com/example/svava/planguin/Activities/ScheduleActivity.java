@@ -103,7 +103,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
             }
         });
 
-        PlanguinRestClient.get("home?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
+        PlanguinRestClient.get("home/"+4+"/"+2017+"?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
                 try {

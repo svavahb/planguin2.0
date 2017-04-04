@@ -136,8 +136,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     public Date getEndTime(){
 
-        int hours_End =simpleTimePicker_Start.getCurrentHour();
-        int minutes_End = simpleTimePicker_Start.getCurrentMinute();
+        int hours_End =simpleTimePicker_End.getCurrentHour();
+        int minutes_End = simpleTimePicker_End.getCurrentMinute();
         int year_End = simpleDatePicker_End.getYear();
         int month_End = simpleDatePicker_End.getMonth();
         int day_End =simpleDatePicker_End.getDayOfMonth();
