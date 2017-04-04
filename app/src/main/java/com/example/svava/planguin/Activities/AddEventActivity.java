@@ -97,15 +97,10 @@ public class AddEventActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);
 
-        StringEntity se = null;
-        try {
-            se = new StringEntity(json);
-        } catch (UnsupportedEncodingException e) {
-            // handle exceptions properly!
-        }
-        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        StringEntity se = new StringEntity(json, "UTF-8");
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
-        PlanguinRestClient.post("createItem/"+loggedInUser,se, "application/json", new JsonHttpResponseHandler(){
+        PlanguinRestClient.post("createItem/"+loggedInUser,se, "application/json;charset=UTF-8", new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject result){
                 System.out.println(result);
