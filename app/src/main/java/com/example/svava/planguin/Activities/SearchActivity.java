@@ -39,8 +39,8 @@ public class SearchActivity extends AppCompatActivity {
     private String searchString;
     private EditText SearchInput;
 
-    private List<String> resultList = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    private List<User> resultList = new ArrayList<>();
+    ArrayAdapter<User> adapter;
 
     String loggedInUser;
 
@@ -68,16 +68,17 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, resultList);
 
-        ListView listView = (ListView) findViewById(R.id.search_list);
+        final ListView listView = (ListView) findViewById(R.id.search_list);
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
+                intent.putExtra("USER_CLICKED", ((User)listView.getItemAtPosition(position)).getUserId());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
@@ -101,7 +102,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     //Add the results from the http response
                     resultList.clear();
-                    resultList.add(user.getUsername());
+                    resultList.add(user);
 
                     // Notify the adapter so the UI is updated
                     adapter.notifyDataSetChanged();

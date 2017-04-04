@@ -32,6 +32,9 @@ public class User {
     public int getUserId(){return userId;}
     public void setUserId(int userId){this.userId = userId;}
 
+    @Override
+    public String toString() { return username;}
+
     public String getPhoto(){return photo;}
     public void setPhoto(String photo){this.photo = photo;}
 

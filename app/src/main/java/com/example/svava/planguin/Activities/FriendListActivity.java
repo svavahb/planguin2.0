@@ -66,13 +66,14 @@ public class FriendListActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, friends);
 
-        ListView listView = (ListView) findViewById(R.id.friendlist_list);
+        final ListView listView = (ListView) findViewById(R.id.friendlist_list);
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(FriendListActivity.this, ProfileActivity.class);
+                intent.putExtra("USER_CLICKED", listView.getItemAtPosition(position).toString());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }

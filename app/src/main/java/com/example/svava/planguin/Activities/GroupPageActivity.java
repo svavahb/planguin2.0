@@ -61,12 +61,13 @@ public class GroupPageActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.GroupName);
         textView.setText(currentGroup);
 
-        ListView listView = (ListView) findViewById(R.id.groupPage_list);
+        final ListView listView = (ListView) findViewById(R.id.groupPage_list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(GroupPageActivity.this, ProfileActivity.class);
+                intent.putExtra("USER_CLICKED", listView.getItemAtPosition(position).toString());
                 startActivity(intent);
                 overridePendingTransition(0, 0);
             }
