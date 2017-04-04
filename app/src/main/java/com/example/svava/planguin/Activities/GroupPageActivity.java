@@ -1,6 +1,8 @@
 package com.example.svava.planguin.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,12 +33,17 @@ public class GroupPageActivity extends AppCompatActivity {
     List<String> groupFriends = new ArrayList<>();
     ArrayAdapter<String> adapter;
     String currentGroup;
+    String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
+
+        // get the logged in user's name
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(GroupPageActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
 
         currentGroup = getIntent().getStringExtra("GROUP_CLICKED");
 
@@ -60,7 +67,7 @@ public class GroupPageActivity extends AppCompatActivity {
             }
         });
 
-        PlanguinRestClient.get("getGroups/svava", new RequestParams(), new JsonHttpResponseHandler() {
+        PlanguinRestClient.get("getGroups/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsongroups){
                 groupFriends.clear();

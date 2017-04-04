@@ -2,6 +2,8 @@ package com.example.svava.planguin.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,11 +34,16 @@ public class GroupListActivity extends AppCompatActivity {
     //String[] groups = new String[]{"Húbbar","Többar"};
     List<String> groups = new ArrayList<>();
     ArrayAdapter adapter;
+    String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
+
+        // get the logged in user's name
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(GroupListActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groups);
@@ -53,7 +60,7 @@ public class GroupListActivity extends AppCompatActivity {
             }
         });
 
-        PlanguinRestClient.get("getGroups/svava", new RequestParams(), new JsonHttpResponseHandler() {
+        PlanguinRestClient.get("getGroups/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsongroups){
                 groups.clear();
