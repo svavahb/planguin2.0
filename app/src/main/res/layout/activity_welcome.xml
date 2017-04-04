@@ -51,9 +51,10 @@
     <Button
         android:id="@+id/sign_up_button"
         android:layout_width="284dp"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
+        android:background="@color/colorAccent"
         android:onClick="onClick"
         android:text="Sign Up"
         tools:layout_editor_absoluteX="50dp"
@@ -62,11 +63,12 @@
     <Button
         android:id="@+id/log_in_button"
         android:layout_width="284dp"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
         android:onClick="onClick"
         android:text="Log In"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="313dp"
-        android:layout_gravity="center"/>
+        tools:layout_editor_absoluteY="313dp" />
 
 </LinearLayout>

@@ -112,5 +112,6 @@
     <string name="compare_friend">Compare with friend</string>
     <string name="compare_group">COmpare with group</string>
     <string name="log_out_button">Log Out!</string>
+    <string name="delete_group_button">Delete group!</string>
 
 </resources>

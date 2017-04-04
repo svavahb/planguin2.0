@@ -32,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
     SearchManager searchManager;
-    JSONparser jsonParser;
+    JSONparser jsonParser = new JSONparser();
     private Button SearchButton;
     private String searchString;
     private EditText SearchInput;
