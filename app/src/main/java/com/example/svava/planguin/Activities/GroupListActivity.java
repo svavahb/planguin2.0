@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 public class GroupListActivity extends AppCompatActivity {
 
     GroupManager groupManager;
-    JSONparser jsonparser;
+    JSONparser jsonparser = new JSONparser();
 
     //String[] groups = new String[]{"Húbbar","Többar"};
     List<String> groups = new ArrayList<>();
