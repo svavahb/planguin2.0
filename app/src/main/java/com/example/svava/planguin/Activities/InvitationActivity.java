@@ -20,14 +20,6 @@ public class InvitationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_invitation);
     }
 
-    private static final String EXTRA_INVITAION_BUTTON = "invitationButton";
-
-    public static Intent newIntent(Context packageContext, boolean invitationButton){
-        Intent i = new Intent(packageContext, InvitationActivity.class);
-        i.putExtra(EXTRA_INVITAION_BUTTON, invitationButton);
-        return i;
-    }
-
     public void onClick(View v) {
 
         Intent i;
