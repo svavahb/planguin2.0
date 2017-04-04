@@ -38,7 +38,9 @@
         android:id="@+id/search_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"></ListView>
+        android:layout_marginStart="10dp"
+        android:divider="@color/divedercolor"
+        android:dividerHeight="10dp"></ListView>
 
 
 </LinearLayout>

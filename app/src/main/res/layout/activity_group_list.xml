@@ -38,8 +38,10 @@
     </LinearLayout>
 
     <ListView
-            android:id="@+id/grouplist_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/grouplist_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/divedercolor"
+        android:dividerHeight="10dp" />
 
 </LinearLayout>

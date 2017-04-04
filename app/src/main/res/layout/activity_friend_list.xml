@@ -20,7 +20,6 @@
             android:id="@+id/textView3"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
-            android:text="@string/friendlist"
             android:textSize="30sp" />
 
         <android.support.design.widget.FloatingActionButton
@@ -41,6 +40,8 @@
     <ListView
         android:id="@+id/friendlist_list"
         android:layout_width="wrap_content"
-        android:layout_height="431dp" />
+        android:layout_height="431dp"
+        android:divider="@color/divedercolor"
+        android:dividerHeight="10dp" />
 
 </LinearLayout>
