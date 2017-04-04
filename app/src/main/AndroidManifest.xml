@@ -35,6 +35,7 @@
         <activity android:name=".Activities.CompareActivity" />
         <activity android:name=".Activities.AddEventActivity"/>
         <activity android:name=".Activities.AddFriendsToGroupActivity"/>
+        <activity android:name=".Activities.CreateGroupActivity"/>
         <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login" >
