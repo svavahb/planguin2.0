@@ -1,5 +1,6 @@
 package com.example.svava.planguin.Utils;
 
+import com.example.svava.planguin.Entities.Date;
 import com.example.svava.planguin.Entities.Group;
 import com.example.svava.planguin.Entities.Schedule;
 import com.example.svava.planguin.Entities.ScheduleItem;
@@ -88,13 +89,13 @@ public class JSONparser {
         return item;
     }
 
-    public LocalDateTime parseDate(JSONObject jsondate){
+    public Date parseDate(JSONObject jsondate){
         int year = jsondate.optInt("year");
-        int month = jsondate.optInt("monthValue");
+        int month = jsondate.optInt("month");
         int day = jsondate.optInt("dayOfMonth");
         int hour = jsondate.optInt("hour");
         int minute = jsondate.optInt("minute");
-        return new LocalDateTime(year,month,day,hour,minute);
+        return new Date(year,month,day,hour,minute);
     }
 
     public Group parseGroup(JSONObject jsongroup) {

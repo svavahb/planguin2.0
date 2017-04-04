@@ -20,17 +20,17 @@ public class CompareManager {
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.YEAR, item.getStartTime().getYear());
-        startTime.set(Calendar.MONTH, item.getStartTime().getMonthOfYear()-1);
+        startTime.set(Calendar.MONTH, item.getStartTime().getMonth()-1);
         startTime.set(Calendar.DAY_OF_MONTH, item.getStartTime().getDayOfMonth());
-        startTime.set(Calendar.HOUR_OF_DAY, item.getStartTime().getHourOfDay());
-        startTime.set(Calendar.MINUTE, item.getStartTime().getMinuteOfHour());
+        startTime.set(Calendar.HOUR_OF_DAY, item.getStartTime().getHour());
+        startTime.set(Calendar.MINUTE, item.getStartTime().getMinute());
 
         Calendar endTime = (Calendar) startTime.clone();
         endTime.set(Calendar.YEAR, item.getEndTime().getYear());
-        endTime.set(Calendar.MONTH, item.getEndTime().getMonthOfYear()-1);
+        endTime.set(Calendar.MONTH, item.getEndTime().getMonth()-1);
         endTime.set(Calendar.DAY_OF_MONTH, item.getEndTime().getDayOfMonth());
-        endTime.set(Calendar.HOUR_OF_DAY, item.getEndTime().getHourOfDay());
-        endTime.set(Calendar.MINUTE, item.getEndTime().getMinuteOfHour());
+        endTime.set(Calendar.HOUR_OF_DAY, item.getEndTime().getHour());
+        endTime.set(Calendar.MINUTE, item.getEndTime().getMinute());
 
         WeekViewEvent event = new WeekViewEvent(item.getId(), " ", startTime, endTime);
 

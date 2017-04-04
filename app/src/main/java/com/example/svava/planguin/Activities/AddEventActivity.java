@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.alamkanak.weekview.WeekViewEvent;
+import com.example.svava.planguin.Entities.Date;
 import com.example.svava.planguin.Entities.ScheduleItem;
 import com.example.svava.planguin.Managers.ScheduleManager;
 import com.example.svava.planguin.R;
@@ -80,13 +81,13 @@ public class AddEventActivity extends AppCompatActivity {
         System.out.println(hours_End);
     }
 
-    private void createScheduleItem(String loggedInUser,String title,LocalDateTime startTime,LocalDateTime endTime  ){
+    private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){
         ScheduleItem scheduleItem = new ScheduleItem();
         scheduleItem.setTitle(title);
+        startTime.setMonth(startTime.getMonth()+1);
         scheduleItem.setStartTime(startTime);
+        endTime.setMonth(endTime.getMonth()+1);
         scheduleItem.setEndTime(endTime);
-        System.out.println("starttime"+startTime);
-        System.out.println("þú hér?");
 
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);
@@ -101,34 +102,34 @@ public class AddEventActivity extends AppCompatActivity {
 
         PlanguinRestClient.post("createItem/"+loggedInUser,se, "application/json", new JsonHttpResponseHandler(){
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
-                System.out.println(jsonresult);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject result){
+                System.out.println(result);
 
                 Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
-
             }
-
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject jsonerror) {
-                System.out.println(jsonerror);
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
+                System.out.println(s+" "+e);
             }
         }
         );
     }
 
-    public LocalDateTime getStartTime(){
+    public Date getStartTime(){
         int hours_Start =simpleTimePicker_Start.getCurrentHour();
         int minutes_Start = simpleTimePicker_Start.getCurrentMinute();
         int year_start = simpleDatePicker_Start.getYear();
         int month_start = simpleDatePicker_Start.getMonth();
         int day_start = simpleDatePicker_Start.getDayOfMonth();
 
-        return scheduleManager.parseTimeToDateTime(hours_Start,minutes_Start,year_start,month_start,day_start);
+        Date start = new Date(year_start, month_start, day_start, hours_Start, minutes_Start);
+
+        return start;
     }
 
-    public LocalDateTime getEndTime(){
+    public Date getEndTime(){
 
         int hours_End =simpleTimePicker_Start.getCurrentHour();
         int minutes_End = simpleTimePicker_Start.getCurrentMinute();
@@ -136,7 +137,9 @@ public class AddEventActivity extends AppCompatActivity {
         int month_End = simpleDatePicker_End.getMonth();
         int day_End =simpleDatePicker_End.getDayOfMonth();
 
-        return scheduleManager.parseTimeToDateTime(hours_End,minutes_End,year_End,month_End,day_End);
+        Date end = new Date(year_End, month_End, day_End, hours_End, minutes_End);
+
+        return end;
     }
 
 

@@ -97,13 +97,6 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 overridePendingTransition(0, 0);
             }
         });
-        /*
-        case R.id.add_event_button:
-                i = new Intent(this, AddEventActivity.class);
-                startActivity(i);
-                overridePendingTransition(0, 0);
-                break;
-         */
 
         PlanguinRestClient.get("home?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
             @Override
@@ -112,13 +105,10 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                     allEvents.clear();
                     Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
                     List<ScheduleItem> scheduleItems = schedule.getItems();
-                    System.out.println(scheduleItems);
                     for (int i = 0; i < scheduleItems.size(); i++) {
-                        System.out.println(scheduleItems.get(i).getTitle());
                         WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
                         allEvents.add(event);
                     }
-                    System.out.println(allEvents);
                     mWeekView.notifyDatasetChanged();
 
                 } catch (JSONException e) {
@@ -138,9 +128,11 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 events.add(allEvents.get(i));
             }
         }
+        for(int i=0; i<events.size(); i++) {
+            System.out.println(events.get(i).getName());
+        }
 
         return events;
-
      }
 
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
