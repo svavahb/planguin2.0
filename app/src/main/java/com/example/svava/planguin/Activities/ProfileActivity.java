@@ -8,16 +8,23 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
+import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -26,7 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     ProfileManager profileManager;
     String loggedInUser;
-    int userToAdd;
+    User userToAdd;
+    JSONparser jsonParser = new JSONparser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +46,36 @@ public class ProfileActivity extends AppCompatActivity {
         loggedInUser = sharedPreferences.getString("username","");
 
 
-        userToAdd = getIntent().getIntExtra("USER_CLICKED", -1);
+        String usernameToAdd = getIntent().getStringExtra("USER_CLICKED");
         TextView textView = (TextView) findViewById(R.id.Username);
+        textView.setText(usernameToAdd);
+
+        PlanguinRestClient.get("/search/"+loggedInUser+"/"+usernameToAdd, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray users) {
+                JSONObject jsonuser;
+                boolean friendship;
+                try {
+                    // parse the user holder into a user object
+                    jsonuser = users.getJSONObject(0);
+                    friendship = jsonuser.getBoolean("friendship");
+                    userToAdd = jsonParser.parseUser(jsonuser);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {
+                System.out.println("Virkar ekki :( "+statusCode+" "+e);
+            }
+        } );
+
     }
     public void addFriend(View v) {
-        Log.d("addFriend", "/addFriend/"+loggedInUser+"/"+userToAdd);
-        PlanguinRestClient.post("/addFriend/"+loggedInUser+"/"+userToAdd, new StringEntity("", "UTF-8"), "application/json;charset=UTF-8",  new JsonHttpResponseHandler() {
+        PlanguinRestClient.post("/addFriend/"+loggedInUser+"/"+userToAdd.getUserId(), new StringEntity("", "UTF-8"), "application/json;charset=UTF-8",  new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString){
