@@ -57,6 +57,11 @@ public class AddEventActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddEventActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(AddEventActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
         scheduleManager = new ScheduleManager();
 
         myEventName =(EditText)findViewById(R.id.eventName);

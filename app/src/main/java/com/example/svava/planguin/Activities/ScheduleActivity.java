@@ -71,6 +71,11 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ScheduleActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(ScheduleActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
         scheduleManager = new ScheduleManager();
 
         allEvents = new ArrayList<>();
