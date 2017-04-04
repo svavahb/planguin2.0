@@ -45,6 +45,11 @@ public class GroupPageActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(GroupPageActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(GroupPageActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
         currentGroup = getIntent().getStringExtra("GROUP_CLICKED");
 
         adapter = new ArrayAdapter<String>(this,

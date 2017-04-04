@@ -49,6 +49,13 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddFriendsToGroupActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(AddFriendsToGroupActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
+
+
         currentGroup = getIntent().getStringExtra("currentGroup");
 
         PlanguinRestClient.get("getFriendsNotInGroup/"+loggedInUser+"/"+currentGroup, new RequestParams(), new JsonHttpResponseHandler() {

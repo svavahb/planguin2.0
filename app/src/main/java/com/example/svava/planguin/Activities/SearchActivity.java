@@ -1,6 +1,8 @@
 package com.example.svava.planguin.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,10 +42,20 @@ public class SearchActivity extends AppCompatActivity {
     private List<String> resultList = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
+    String loggedInUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SearchActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
+
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(SearchActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
 
         SearchButton = (Button) findViewById(R.id.search_button);
         SearchInput = (EditText) findViewById(R.id.editText_search);

@@ -61,6 +61,13 @@ public class CompareActivity extends AppCompatActivity implements MonthLoader.Mo
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CompareActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(CompareActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
+
+
         // Get the spinners
         friendSpin = (Spinner) findViewById(R.id.spinner_friend);
         groupSpin = (Spinner) findViewById(R.id.spinner_group);

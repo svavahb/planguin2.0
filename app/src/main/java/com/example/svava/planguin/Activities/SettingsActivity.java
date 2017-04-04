@@ -13,11 +13,20 @@ import com.example.svava.planguin.R;
 public class SettingsActivity extends AppCompatActivity {
 
     Button button;
+    String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
+
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(SettingsActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
 
         button = (Button) findViewById(R.id.log_out_button);
         button.setOnClickListener(new View.OnClickListener() {

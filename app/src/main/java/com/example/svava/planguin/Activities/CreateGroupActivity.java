@@ -31,10 +31,17 @@ public class CreateGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
 
-        GroupNameInput = (EditText) findViewById(R.id.namegroup);
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CreateGroupActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
+
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(CreateGroupActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
+        GroupNameInput = (EditText) findViewById(R.id.namegroup);
+
+
 
     }
 

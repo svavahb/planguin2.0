@@ -45,6 +45,11 @@ public class GroupListActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(GroupListActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(GroupListActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groups);
 

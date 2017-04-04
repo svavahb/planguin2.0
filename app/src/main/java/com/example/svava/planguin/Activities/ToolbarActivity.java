@@ -1,6 +1,8 @@
 package com.example.svava.planguin.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,20 +16,19 @@ public class ToolbarActivity extends AppCompatActivity {
 
     private Button InvitationButton;
     private Button mSettingsButton;
+    String loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar);
 
-        /*InvitationButton = (Button) findViewById(R.id.invitation_button);
-        InvitationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ToolbarActivity.this, "Button Clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ToolbarActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
 
-        mSettingsButton = (Button) findViewById(R.id.settings_button);
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(ToolbarActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
     }
 }

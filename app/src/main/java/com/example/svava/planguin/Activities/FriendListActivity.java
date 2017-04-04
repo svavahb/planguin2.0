@@ -42,6 +42,11 @@ public class FriendListActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(FriendListActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(FriendListActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+
         PlanguinRestClient.get("getFriends/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsonfriends){

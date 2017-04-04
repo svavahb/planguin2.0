@@ -113,5 +113,7 @@
     <string name="compare_group">COmpare with group</string>
     <string name="log_out_button">Log Out!</string>
     <string name="delete_group_button">Delete group!</string>
+    <string name="sign_up_button">Sign Up!</string>
+    <string name="log_in_button">Log In!</string>
 
 </resources>

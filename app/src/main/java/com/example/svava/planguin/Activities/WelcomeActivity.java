@@ -18,6 +18,10 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
     }
 
+    @Override
+    public void onBackPressed(){
+    }
+
     public void onClick(View v) {
 
         Intent i;
