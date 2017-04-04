@@ -82,8 +82,14 @@
         android:id="@+id/submitevent_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_style"
         android:onClick="onClick"
-        android:text="Button" />
+        android:text="@string/submitevent_button"
+        android:textColor="@color/textcolor" />
 
 
 </LinearLayout>

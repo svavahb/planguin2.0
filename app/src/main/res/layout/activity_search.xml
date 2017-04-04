@@ -11,23 +11,34 @@
 
     <EditText
         android:id="@+id/editText_search"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="Name"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/search_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_margintop="10dp"
+        android:background="@drawable/button_style"
+        android:text="@string/search_button"
+        android:textColor="@color/textcolor" />
 
     <ListView
+        android:id="@+id/search_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/search_list">
-    </ListView>
+        android:layout_marginStart="10dp"></ListView>
 
 
 </LinearLayout>

@@ -2,7 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#0099cc</color>
+    <color name="colorAccent">#00bfff</color>
     <color name="planguinColor">#0099cc</color>
     <color name="compareColor">#ff0000</color>
+    <color name="textcolor">#f1f1f1</color>
+    <color name="light">#f9f9f9</color>
 </resources>
