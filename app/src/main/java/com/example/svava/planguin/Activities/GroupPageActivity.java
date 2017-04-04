@@ -27,9 +27,10 @@ import cz.msebera.android.httpclient.Header;
 public class GroupPageActivity extends AppCompatActivity {
 
     GroupManager groupManager;
-    JSONparser jsonparser;
+    JSONparser jsonparser = new JSONparser();
     List<String> groupFriends = new ArrayList<>();
     ArrayAdapter<String> adapter;
+    String currentGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,7 @@ public class GroupPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
 
-        final String currentGroup = getIntent().getStringExtra("GROUP_CLICKED");
-        System.out.println("current: "+currentGroup);
+        currentGroup = getIntent().getStringExtra("GROUP_CLICKED");
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, groupFriends);
@@ -115,6 +115,7 @@ public class GroupPageActivity extends AppCompatActivity {
                 break;
             case R.id.addfriendstogroup_button:
                 i = new Intent(this, AddFriendsToGroupActivity.class);
+                i.putExtra("currentGroup", currentGroup);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;

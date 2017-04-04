@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class AddFriendsToGroupActivity extends AppCompatActivity{
 
     ProfileManager profileManager;
     Button button;
     ListView listView;
+    String currentGroup;
 
     //String[] users = new String[]{"Halldóra", "Þórunn", "Svava", "Þórdís"};
     List<String> friends = new ArrayList<>();
@@ -37,6 +39,9 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        currentGroup = getIntent().getStringExtra("currentGroup");
+
         PlanguinRestClient.get("getFriends/svava", new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray jsonfriends){
@@ -83,20 +88,21 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
                         selectedItems.add(adapter.getItem(position));
                 }
 
-                String[] outputStrArr = new String[selectedItems.size()];
-
-                for (int i = 0; i < selectedItems.size(); i++){
-                    outputStrArr[i] = selectedItems.get(i);
+                for (int i=0; i<selectedItems.size(); i++) {
+                    addFriendToGroup(selectedItems.get(i),currentGroup);
                 }
-
-                Intent i = new Intent(getApplicationContext(), GroupPageActivity.class);
-
-                Bundle b = new Bundle();
-                b.putStringArray("selectedItems", outputStrArr);
-
-                i.putExtras(b);
-
+                Intent i = new Intent(AddFriendsToGroupActivity.this, GroupPageActivity.class);
+                i.putExtra("GROUP_CLICKED",currentGroup);
                 startActivity(i);
+            }
+        });
+    }
+
+    public void addFriendToGroup(String friendname, String groupname) {
+        PlanguinRestClient.get("addToGroup/"+groupname+"/"+friendname, new RequestParams(), new JsonHttpResponseHandler(){
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject jsonerror) {
+                System.out.println(jsonerror);
             }
         });
     }
