@@ -20,8 +20,7 @@
             android:id="@+id/textView3"
             android:layout_width="276dp"
             android:layout_height="wrap_content"
-            android:text="Grouplist"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/create_group_button"
@@ -38,7 +37,7 @@
 
     </LinearLayout>
 
-        <ListView
+    <ListView
             android:id="@+id/grouplist_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

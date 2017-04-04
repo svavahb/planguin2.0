@@ -18,7 +18,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/editText_search"
         android:inputType="textPersonName" />
 
     <Button

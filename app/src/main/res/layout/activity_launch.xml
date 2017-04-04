@@ -14,8 +14,9 @@
         android:layout_height="239dp"
         android:layout_gravity="center"
         android:background="@color/planguinColor"
-        android:paddingLeft="72dp"
+        android:contentDescription="@string/planguin_logo"
 
+        android:paddingLeft="72dp"
         android:paddingRight="72dp"
         app:srcCompat="@drawable/planguin" />
 </LinearLayout>

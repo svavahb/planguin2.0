@@ -11,19 +11,23 @@
 
     <EditText
         android:id="@+id/eventName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:ems="10"
+        android:hint="@string/eventName"
         android:inputType="textPersonName"
-        android:hint="Name"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="120dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/startTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Time" />
+        android:layout_marginStart="20dp"
+        android:text="@string/startTime" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,11 +52,11 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/endTime"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_weight="0.00"
-        android:text="End Time" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/endTime" />
 
 
 
