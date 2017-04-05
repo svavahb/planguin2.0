@@ -1,9 +1,12 @@
 package com.example.svava.planguin.Activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.RectF;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +87,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
+        // Set action when new event is added
         mWeekView.setAddEventClickListener(new WeekView.AddEventClickListener() {
             @Override
             public void onAddEventClicked(Calendar startTime, Calendar endTime) {
@@ -103,7 +107,28 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         mWeekView.setMonthChangeListener(this);
 
         // Set long press listener for events.
-        mWeekView.setEventLongPressListener(mEventLongPressListener);
+        mWeekView.setEventLongPressListener(new WeekView.EventLongPressListener() {
+            @Override
+            public void onEventLongPress(final WeekViewEvent event, RectF eventRect) {
+                new AlertDialog.Builder(ScheduleActivity.this)
+                        .setTitle("Delete event")
+                        .setMessage("Are you sure you want to delete this event?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO
+                                // deleta eventinum
+                                onDeleteEvent(event);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
 
         AddEventButton = (Button) findViewById(R.id.add_event_button);
         AddEventButton.setOnClickListener(new View.OnClickListener(){
@@ -150,6 +175,17 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         }
 
         return events;
+     }
+
+     public void onDeleteEvent(final WeekViewEvent event) {
+         PlanguinRestClient.get("deleteItem?itemId="+event.getId(), new RequestParams(), new JsonHttpResponseHandler(){
+             @Override
+             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                 System.out.println("success?");
+                 allEvents.remove(event);
+                 mWeekView.notifyDatasetChanged();
+             }
+         });
      }
 
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";

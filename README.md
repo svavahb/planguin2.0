@@ -15,4 +15,4 @@ TODO
 - sýna lit eftir að hann er valinn?
 - click event (sýnir description?)
 - laga útlit á tökkum (friendlist og grouplist)
--
+- vista liti
