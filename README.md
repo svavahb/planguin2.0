@@ -12,3 +12,4 @@ TODO
 - click event (sýnir description?)
 - vista liti
 - repeated event
+- invitation -> search
