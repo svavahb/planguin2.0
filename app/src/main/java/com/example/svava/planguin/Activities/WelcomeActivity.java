@@ -5,13 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.svava.planguin.Managers.UserManager;
 import com.example.svava.planguin.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-
-    UserManager userManager;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
