@@ -117,7 +117,7 @@
     <string name="log_in_button">Log In!</string>
     <string name="submitevent_button">Add Event!</string>
     <string name="search_button">Search!</string>
-    <string name="add_event_button">Add A New Event!</string>
+    <string name="add_event_button">Add A New Event</string>
     <string name="eventName">Name</string>
     <string name="startTime">Start Time:</string>
     <string name="endTime">End Time:</string>
@@ -128,5 +128,7 @@
     <string name="choose_end_time">choose end time</string>
     <string name="search_tip">Tip: If you press search without entering any name, you get a list of all users.</string>
     <string name="color_pick_button">Pick a color</string>
+    <string name="add_new_friend_button">Find friends</string>
+    <string name="create_group_button">Create group</string>
 
 </resources>

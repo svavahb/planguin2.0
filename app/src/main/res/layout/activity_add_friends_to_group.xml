@@ -12,22 +12,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
         <ListView
             android:id="@+id/friendlist_checklist"
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/addtogroup_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button_style"
             android:text="@string/addtogroup_button"
             android:textColor="@color/textcolor" />

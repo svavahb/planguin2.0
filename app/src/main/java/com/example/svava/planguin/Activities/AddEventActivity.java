@@ -163,6 +163,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onColorChosen(@ColorInt int selectedColor) {
                 color = selectedColor;
                 cp.hide();
+
             }
         });
     }

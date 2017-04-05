@@ -16,6 +16,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/eventName"
         android:inputType="textPersonName"
@@ -35,7 +36,7 @@
             android:id="@+id/startTime_button"
             android:layout_width="156dp"
             android:layout_height="64dp"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:background="@drawable/button_style"
             android:text="@string/choose_start_time"
             android:textColor="@color/textcolor" />
@@ -54,6 +55,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:paddingEnd="20dp"
@@ -63,9 +65,8 @@
             android:id="@+id/endTime_button"
             android:layout_width="156dp"
             android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.07"
             android:background="@drawable/button_style"
+            android:gravity="center"
             android:text="@string/choose_end_time"
             android:textColor="@color/textcolor" />
 
@@ -74,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1.24"
             android:gravity="center"
             android:text=""
             android:textSize="20sp" />
@@ -89,10 +89,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/button_style"
         android:text="@string/color_pick_button"
-        android:textColor="@color/textcolor"/>
+        android:textColor="@color/textcolor" />
 
     <Button
         android:id="@+id/submitevent_button"
