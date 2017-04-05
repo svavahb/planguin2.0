@@ -20,7 +20,6 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.example.svava.planguin.Managers.UserManager;
 import com.example.svava.planguin.R;
 
 import java.util.List;
@@ -37,9 +36,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class Settings extends AppCompatPreferenceActivity {
-
-    UserManager userManager;
-    /**
+        /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */

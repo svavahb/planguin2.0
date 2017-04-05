@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.Group;
-import com.example.svava.planguin.Managers.GroupManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
@@ -30,7 +29,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class GroupPageActivity extends AppCompatActivity {
 
-    GroupManager groupManager;
     JSONparser jsonparser = new JSONparser();
     List<String> groupFriends = new ArrayList<>();
     ArrayAdapter<String> adapter;

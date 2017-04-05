@@ -1,6 +1,5 @@
 package com.example.svava.planguin.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.svava.planguin.Entities.Group;
-import com.example.svava.planguin.Managers.GroupManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
@@ -28,7 +26,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class GroupListActivity extends AppCompatActivity {
 
-    GroupManager groupManager;
     JSONparser jsonparser = new JSONparser();
 
     //String[] groups = new String[]{"Húbbar","Többar"};
