@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.User;
@@ -38,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     private Button SearchButton;
     private String searchString;
     private EditText SearchInput;
+    private TextView SearchResults;
 
     private List<String> resultList = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -59,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
 
         SearchButton = (Button) findViewById(R.id.search_button);
         SearchInput = (EditText) findViewById(R.id.editText_search);
+        SearchResults = (TextView) findViewById(R.id.search_results_text);
 
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,14 +98,25 @@ public class SearchActivity extends AppCompatActivity {
                 JSONObject jsonuser;
                 boolean friendship;
                 try {
-                    // parse the user holder into a user object
-                    jsonuser = users.getJSONObject(0);
-                    friendship = jsonuser.getBoolean("friendship");
-                    User user = jsonParser.parseUser(jsonuser);
-
-                    //Add the results from the http response
                     resultList.clear();
-                    resultList.add(user.getUsername());
+                    // parse the user holder into a user object
+                    for (int i=0; i<users.length(); i++) {
+                        JSONObject jsonuserholder = users.getJSONObject(i);
+                        jsonuser = jsonuserholder.getJSONObject("user");
+                        friendship = jsonuserholder.getBoolean("friendship");
+                        //User user = jsonParser.parseUser(jsonuser);
+                        if (jsonuser.optString("username").equals("null")) {
+                            SearchResults.setText(new StringBuilder().append("No user with that username found. Try again"));
+                        }
+                        else if (users.length()>1) {
+                            SearchResults.setText(new StringBuilder("Showing list of all users"));
+                            resultList.add(jsonuser.optString("username"));
+                        }
+                        else {
+                            SearchResults.setText(new StringBuilder().append("One user found"));
+                            resultList.add(jsonuser.optString("username"));
+                        }
+                    }
 
                     // Notify the adapter so the UI is updated
                     adapter.notifyDataSetChanged();
