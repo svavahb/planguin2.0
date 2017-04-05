@@ -96,17 +96,17 @@ public class AddEventActivity extends AppCompatActivity {
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isEdit) {
+                if (validateItem()) {
                     stringEventName = myEventName.getText().toString();
-                    editScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime(), eventId);
-                }
-                else {
-                    if (validateItem()) {
-                        stringEventName = myEventName.getText().toString();
-                        createScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime());
-                    } else {
-                        myEventName.setError("End time must be after start time!");
+                    if(isEdit) {
+                        System.out.println("HALLOOOOO");
+                        editScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime(), eventId);
                     }
+                    else {
+                        createScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime());
+                    }
+                } else {
+                    myEventName.setError("End time must be after start time!");
                 }
             }
         });
@@ -189,6 +189,7 @@ public class AddEventActivity extends AppCompatActivity {
         int blue = 250;
 
         if(isEdit) {
+            System.out.println("HALLÓ");
             myEventName.setText(editTitle);
             //myEventDescription.setText(editDescription);
             addEventButton.setText(R.string.edit_event_button);
@@ -438,19 +439,10 @@ public class AddEventActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.invitation_button:
-                i = new Intent(this, InvitationActivity.class);
+            case R.id.find_friends_button:
+                i = new Intent(this, SearchActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
-                break;
-            case R.id.submitevent_button:
-                if (validateItem()) {
-                    stringEventName= myEventName.getText().toString();
-                    createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
-                }
-                else {
-                    myEventName.setError("End time must be after start time!");
-                }
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);

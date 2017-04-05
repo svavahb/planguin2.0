@@ -111,7 +111,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_style"
-        android:onClick="onClick"
         android:text="@string/submitevent_button"
         android:textColor="@color/textcolor" />
 
