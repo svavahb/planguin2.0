@@ -22,134 +22,65 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="120dp" />
 
-    <TextView
-        android:id="@+id/startTime"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/startTime" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
+
+        <Button
+            android:id="@+id/startTime_button"
+            android:layout_width="156dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_style"
+            android:text="@string/choose_start_time"
+            android:textColor="@color/textcolor" />
+
+        <TextView
+            android:id="@+id/startTime_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="142dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="199dp"
-            android:layout_height="174dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/startTime_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/choose_start_time"
-                android:layout_gravity="center"
-                android:background="@drawable/button_style"/>
-
-            <TextView
-                android:id="@+id/startTime_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:layout_weight="1.24"
-                android:gravity="center"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/startDate_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/choose_start"
-                android:layout_gravity="center"
-                android:background="@drawable/button_style"/>
-
-            <TextView
-                android:id="@+id/startDate_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:layout_weight="1.24"
-                android:gravity="center"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/endTime"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="@string/endTime" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
 
+        <Button
+            android:id="@+id/endTime_button"
+            android:layout_width="156dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.07"
+            android:background="@drawable/button_style"
+            android:text="@string/choose_end_time"
+            android:textColor="@color/textcolor" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="141dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/endTime_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/choose_end_time"
-                android:layout_gravity="center"
-                android:background="@drawable/button_style"/>
-
-            <TextView
-                android:id="@+id/endTime_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:layout_weight="1.24"
-                android:gravity="center"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/endTime_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/endDate_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/choose_end"
-                android:background="@drawable/button_style"/>
-
-            <TextView
-                android:id="@+id/endDate_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1.24"
-                android:gravity="center"
-                android:text=""
-                android:textSize="20sp" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.24"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp" />
 
     </LinearLayout>
+
 
     <Button
         android:id="@+id/submitevent_button"
