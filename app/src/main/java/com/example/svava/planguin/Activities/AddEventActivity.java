@@ -171,12 +171,30 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void showTimeStart(int hour, int minute, int day, int month, int year) {
-        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        startTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
     private void showTimeEnd(int hour, int minute, int day, int month, int year) {
-        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        endTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
