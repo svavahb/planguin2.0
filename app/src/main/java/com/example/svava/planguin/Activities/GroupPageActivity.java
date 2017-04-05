@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.Group;
 import com.example.svava.planguin.Managers.GroupManager;
@@ -103,6 +104,7 @@ public class GroupPageActivity extends AppCompatActivity {
                 System.out.println("group deleted");
                 Intent i = new Intent(GroupPageActivity.this, GroupListActivity.class);
                 startActivity(i);
+                Toast.makeText(GroupPageActivity.this, "Group deleted", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject json) {

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
@@ -107,12 +108,14 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
                 Intent i = new Intent(AddFriendsToGroupActivity.this, GroupPageActivity.class);
                 i.putExtra("GROUP_CLICKED",currentGroup);
                 startActivity(i);
+                Toast.makeText(AddFriendsToGroupActivity.this, "Friend added to group", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void addFriendToGroup(String friendname, String groupname) {
         PlanguinRestClient.get("addToGroup/"+groupname+"/"+friendname, new RequestParams(), new JsonHttpResponseHandler(){
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject jsonerror) {
                 System.out.println(jsonerror);
