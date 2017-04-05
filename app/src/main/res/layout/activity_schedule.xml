@@ -39,8 +39,5 @@
         app:todayBackgroundColor="#1848adff"
         app:headerColumnBackground="#ffffffff"
         app:dayNameLength="length_short"
-        android:layout_weight="1"
-        />
-
-
+        android:layout_weight="1" />
 </LinearLayout>

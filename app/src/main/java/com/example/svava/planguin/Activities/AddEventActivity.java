@@ -15,6 +15,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
 import com.example.svava.planguin.Entities.Date;
@@ -338,6 +340,7 @@ public class AddEventActivity extends AppCompatActivity {
                 //i = new Intent(this, ScheduleActivity.class);
                 stringEventName= myEventName.getText().toString();
                 createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                Toast.makeText(this, "event created", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);
