@@ -8,7 +8,7 @@ import android.view.View;
 import com.example.svava.planguin.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
