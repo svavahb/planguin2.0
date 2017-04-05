@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -87,9 +88,6 @@ public class SignUpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_sign_up);
 
         usernameFail = getIntent().getBooleanExtra("usernameFail",false);
-
-        mySharedPreferences=getSharedPreferences("loggedInUser", mode);
-        editor= mySharedPreferences.edit();
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
@@ -223,8 +221,9 @@ public class SignUpActivity extends AppCompatActivity{
         PlanguinRestClient.post("signup", se, "application/json", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
-                editor.putString("username",jsonresult.optString("username"));
-                editor.commit();
+                mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(SignUpActivity.this);
+                mySharedPreferences.edit().putString("username",jsonresult.optString("username")).commit();
+                System.out.println("hér klárast signup");
                 Intent intent = new Intent(SignUpActivity.this, ScheduleActivity.class);
                 startActivity(intent);
                 overridePendingTransition(0, 0);

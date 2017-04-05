@@ -1,13 +1,17 @@
 package com.example.svava.planguin.Activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.alamkanak.weekview.WeekViewEvent;
@@ -25,6 +29,7 @@ import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -35,8 +40,20 @@ public class AddEventActivity extends AppCompatActivity {
 
     public TimePicker simpleTimePicker_Start;
     public TimePicker simpleTimePicker_End;
-    public DatePicker simpleDatePicker_Start;
-    public DatePicker simpleDatePicker_End;
+
+    public Button startDateButton;
+    public Button endDateButton;
+    public TextView startDateText;
+    public TextView endDateText;
+    //public DatePicker simpleDatePicker_Start;
+    //public DatePicker simpleDatePicker_End;
+    int year_start;
+    int month_start;
+    int day_start;
+
+    int year_end;
+    int month_end;
+    int day_end;
 
 
     EditText myEventName;
@@ -45,8 +62,6 @@ public class AddEventActivity extends AppCompatActivity {
     SharedPreferences mySharedPreferences;
     String loggedInUser;
     ScheduleManager scheduleManager;
-
-
 
 
     @Override
@@ -66,12 +81,43 @@ public class AddEventActivity extends AppCompatActivity {
 
         myEventName =(EditText)findViewById(R.id.eventName);
 
+        startDateButton = (Button) findViewById(R.id.startDate_button);
+        startDateText = (TextView) findViewById(R.id.startDate_text);
+        endDateButton = (Button) findViewById(R.id.endDate_button);
+        endDateText = (TextView) findViewById(R.id.endDate_text);
 
-        simpleDatePicker_Start = (DatePicker)findViewById(R.id.simpleDatePicker_Start); // initiate a date picker
+        Calendar today = Calendar.getInstance();
+        year_start = today.get(Calendar.YEAR);
+        month_start = today.get(Calendar.MONTH);
+        day_start = today.get(Calendar.DAY_OF_MONTH);
+
+        year_end = today.get(Calendar.YEAR);
+        month_end = today.get(Calendar.MONTH);
+        day_end = today.get(Calendar.DAY_OF_MONTH);
+
+        showDateStart(year_start,month_start,day_start);
+        showDateEnd(year_end, month_end, day_end);
+
+
+        startDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(999);
+            }
+        });
+
+        endDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(998);
+            }
+        });
+
+        /*simpleDatePicker_Start = (DatePicker)findViewById(R.id.simpleDatePicker_Start); // initiate a date picker
         simpleDatePicker_Start.setSpinnersShown(false);
 
         simpleDatePicker_End = (DatePicker)findViewById(R.id.simpleDatePicker_End); // initiate a date picker
-        simpleDatePicker_End.setSpinnersShown(false);
+        simpleDatePicker_End.setSpinnersShown(false);*/
 
         simpleTimePicker_Start = (TimePicker)findViewById(R.id.simpleTimePicker_Start); // initiate a time picker
         simpleTimePicker_Start.setIs24HourView(true);
@@ -85,6 +131,61 @@ public class AddEventActivity extends AppCompatActivity {
         int minutes_End = simpleTimePicker_End.getCurrentMinute();
         System.out.println(hours_End);
     }
+
+    private void showDateStart(int year, int month, int day) {
+        startDateText.setText(new StringBuilder().append(day).append("/")
+                .append(month+1).append("/").append(year));
+    }
+
+    private void showDateEnd(int year, int month, int day) {
+        endDateText.setText(new StringBuilder().append(day).append("/")
+                .append(month+1).append("/").append(year));
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myStartDateListener, year_start, month_start, day_start);
+        }
+        if (id==998) {
+            return new DatePickerDialog(this, myEndDateListener, year_end, month_end, day_end);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myStartDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    year_start = arg1;
+                    month_start = arg2;
+                    day_start = arg3;
+                    showDateStart(arg1, arg2+1, arg3);
+                }
+            };
+
+    private DatePickerDialog.OnDateSetListener myEndDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    year_end = arg1;
+                    month_end = arg2;
+                    day_end = arg3;
+                    showDateEnd(arg1, arg2+1, arg3);
+                }
+            };
 
     private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){
         ScheduleItem scheduleItem = new ScheduleItem();
@@ -101,30 +202,31 @@ public class AddEventActivity extends AppCompatActivity {
         se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
         PlanguinRestClient.post("createItem/"+loggedInUser,se, "application/json;charset=UTF-8", new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject result){
-                System.out.println(result);
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject result){
+                        System.out.println(result);
 
-                Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
-                System.out.println(s+" "+e);
-            }
-        }
+                        Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                    }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
+                        System.out.println(s+" "+e);
+                    }
+                }
         );
     }
 
     public Date getStartTime(){
         int hours_Start =simpleTimePicker_Start.getCurrentHour();
         int minutes_Start = simpleTimePicker_Start.getCurrentMinute();
-        int year_start = simpleDatePicker_Start.getYear();
-        int month_start = simpleDatePicker_Start.getMonth();
-        int day_start = simpleDatePicker_Start.getDayOfMonth();
+        int year = year_start;
+        int month = month_start;
+        int day = day_start;
 
-        Date start = new Date(year_start, month_start, day_start, hours_Start, minutes_Start);
+        System.out.println("start: "+day+"/"+month+"/"+year);
+        Date start = new Date(year, month, day, hours_Start, minutes_Start);
 
         return start;
     }
@@ -133,11 +235,12 @@ public class AddEventActivity extends AppCompatActivity {
 
         int hours_End =simpleTimePicker_End.getCurrentHour();
         int minutes_End = simpleTimePicker_End.getCurrentMinute();
-        int year_End = simpleDatePicker_End.getYear();
-        int month_End = simpleDatePicker_End.getMonth();
-        int day_End =simpleDatePicker_End.getDayOfMonth();
+        int year = year_end;
+        int month = month_end;
+        int day = day_end;
 
-        Date end = new Date(year_End, month_End, day_End, hours_End, minutes_End);
+        System.out.println("end: "+day+"/"+month+"/"+year);
+        Date end = new Date(year, month, day, hours_End, minutes_End);
 
         return end;
     }
