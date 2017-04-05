@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.svava.planguin.Entities.User;
@@ -29,12 +30,17 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-public class ProfileActivity extends AppCompatActivity {
+import static android.R.attr.button;
+import static android.R.attr.visibility;
 
-    ProfileManager profileManager;
+public class ProfileActivity extends AppCompatActivity {
     String loggedInUser;
     User userToAdd;
     JSONparser jsonParser = new JSONparser();
+    Button button1;
+    Button button2;
+    String usernameToAdd;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -42,12 +48,15 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
 
 
-        String usernameToAdd = getIntent().getStringExtra("USER_CLICKED");
+
+        usernameToAdd = getIntent().getStringExtra("USER_CLICKED");
         TextView textView = (TextView) findViewById(R.id.Username);
+        button1 = (Button) findViewById(R.id.addFriendButton);
+        button2 = (Button) findViewById(R.id.removeFriendButton);
         textView.setText(usernameToAdd);
 
         PlanguinRestClient.get("/search/"+loggedInUser+"/"+usernameToAdd, new RequestParams(), new JsonHttpResponseHandler() {
@@ -59,8 +68,21 @@ public class ProfileActivity extends AppCompatActivity {
                     // parse the user holder into a user object
                     jsonuser = users.getJSONObject(0);
                     friendship = jsonuser.getBoolean("friendship");
+
                     userToAdd = jsonParser.parseUser(jsonuser);
 
+                    if(friendship) {
+                        button2.setVisibility(View.VISIBLE);
+                    } else {
+                        button1.setVisibility(View.VISIBLE);
+                        button2.setVisibility(View.GONE);
+                    }
+
+                    TextView textViewSchool = (TextView) findViewById(R.id.textViewSchool);
+                    if(userToAdd.getSchool()!= "null") {
+                        textViewSchool.setVisibility(View.VISIBLE);
+                        textViewSchool.setText(userToAdd.getSchool());
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -81,6 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, String responseString){
                 // String success = jsonfriends.optString("username");
                 Log.d("addFriend","Success!");
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {
@@ -89,8 +112,37 @@ public class ProfileActivity extends AppCompatActivity {
 
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("addedFriend", "success!");
+                button2.setVisibility(View.VISIBLE);
+                button1.setVisibility(View.GONE);
             }
-            
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                System.out.println(statusCode+" "+e);
+            }
+        });
+
+    }
+
+    public void deleteFriend(View v) {
+        PlanguinRestClient.post("/deleteFriendship/"+loggedInUser+"/"+userToAdd.getUsername(), new StringEntity("", "UTF-8"), "application/json;charset=UTF-8",  new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString){
+                // String success = jsonfriends.optString("username");
+                Log.d("deleteFriend","Success!");
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {
+                System.out.println(statusCode+" "+e);
+            }
+
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("deletedFriend", "success!");
+                button1.setVisibility(View.VISIBLE);
+            }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 System.out.println(statusCode+" "+e);
@@ -112,6 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent i;
         int id = v.getId();
+
 
         switch(id){
             case R.id.compare_button:

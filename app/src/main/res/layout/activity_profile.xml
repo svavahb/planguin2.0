@@ -37,7 +37,8 @@
             android:id="@+id/textViewSchool"
             android:layout_width="99dp"
             android:layout_height="wrap_content"
-            android:text="School:" />
+            android:text="School:"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/profile_school"
@@ -50,7 +51,15 @@
             android:layout_width="80dp"
             android:layout_height="53dp"
             android:text="Add Friend"
-            android:onClick="addFriend"/>
+            android:onClick="addFriend"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/removeFriendButton"
+            android:layout_width="80dp"
+            android:layout_height="53dp"
+            android:text="Remove Friend"
+            android:onClick="deleteFriend"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>
