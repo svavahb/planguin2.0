@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.svava.planguin.R;
 
@@ -19,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
@@ -67,8 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.invitation_button:
-                i = new Intent(this, InvitationActivity.class);
+            case R.id.find_friends_button:
+                i = new Intent(this, SearchActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
@@ -79,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
             case R.id.profile_button:
                 i = new Intent(this, ProfileActivity.class);
+                i.putExtra("USER_CLICKED", loggedInUser);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
