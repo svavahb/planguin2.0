@@ -77,9 +77,15 @@ public class AddEventActivity extends AppCompatActivity {
             Intent i = new Intent(AddEventActivity.this, WelcomeActivity.class);
             startActivity(i);
         }
+        // Get start time from intent
+        long startMillis = getIntent().getLongExtra("startTime",0);
+
+        // Get end time from intent
+        long endMillis = getIntent().getLongExtra("endTime",0);
 
         scheduleManager = new ScheduleManager();
 
+        // Find buttons and text views
         myEventName =(EditText)findViewById(R.id.eventName);
 
         startDateButton = (Button) findViewById(R.id.startDate_button);
@@ -94,18 +100,42 @@ public class AddEventActivity extends AppCompatActivity {
         endTimeButton = (Button) findViewById(R.id.endTime_button);
         endTimeText = (TextView) findViewById(R.id.endTime_text);
 
-        Calendar today = Calendar.getInstance();
-        year_start = today.get(Calendar.YEAR);
-        month_start = today.get(Calendar.MONTH);
-        day_start = today.get(Calendar.DAY_OF_MONTH);
-        hour_start = today.get(Calendar.HOUR_OF_DAY);
-        minute_start = today.get(Calendar.MINUTE);
+        // Initialize the text views to today or the time gotten from the intent
+        if (startMillis==0) {
+            Calendar today = Calendar.getInstance();
+            year_start = today.get(Calendar.YEAR);
+            month_start = today.get(Calendar.MONTH);
+            day_start = today.get(Calendar.DAY_OF_MONTH);
+            hour_start = today.get(Calendar.HOUR_OF_DAY);
+            minute_start = today.get(Calendar.MINUTE);
+        }
+        else {
+            Calendar start = Calendar.getInstance();
+            start.setTimeInMillis(startMillis);
+            year_start = start.get(Calendar.YEAR);
+            month_start = start.get(Calendar.MONTH);
+            day_start = start.get(Calendar.DAY_OF_MONTH);
+            hour_start = start.get(Calendar.HOUR_OF_DAY);
+            minute_start = start.get(Calendar.MINUTE);
+        }
 
-        year_end = today.get(Calendar.YEAR);
-        month_end = today.get(Calendar.MONTH);
-        day_end = today.get(Calendar.DAY_OF_MONTH);
-        hour_end = today.get(Calendar.HOUR_OF_DAY);
-        minute_end = today.get(Calendar.MINUTE);
+        if (endMillis==0) {
+            Calendar today = Calendar.getInstance();
+            year_end = today.get(Calendar.YEAR);
+            month_end = today.get(Calendar.MONTH);
+            day_end = today.get(Calendar.DAY_OF_MONTH);
+            hour_end = today.get(Calendar.HOUR_OF_DAY);
+            minute_end = today.get(Calendar.MINUTE);
+        }
+        else {
+            Calendar end = Calendar.getInstance();
+            end.setTimeInMillis(endMillis);
+            year_end = end.get(Calendar.YEAR);
+            month_end = end.get(Calendar.MONTH);
+            day_end = end.get(Calendar.DAY_OF_MONTH);
+            hour_end = end.get(Calendar.HOUR_OF_DAY);
+            minute_end = end.get(Calendar.MINUTE);
+        }
 
         showDateStart(year_start,month_start,day_start);
         showDateEnd(year_end, month_end, day_end);
@@ -114,7 +144,7 @@ public class AddEventActivity extends AppCompatActivity {
         showTimeEnd(hour_end, minute_end);
 
 
-        startDateButton.setOnClickListener(new View.OnClickListener() {
+        /*startDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog(999);
@@ -126,7 +156,7 @@ public class AddEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 showDialog(998);
             }
-        });
+        });*/
 
         startTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +223,7 @@ public class AddEventActivity extends AppCompatActivity {
                     month_start = arg2;
                     day_start = arg3;
                     showDateStart(arg1, arg2+1, arg3);
+
                 }
             };
 
@@ -220,6 +251,7 @@ public class AddEventActivity extends AppCompatActivity {
                     hour_start = arg1;
                     minute_start = arg2;
                     showTimeStart(arg1, arg2);
+                    showDialog(999);
                 }
             };
 
@@ -231,6 +263,7 @@ public class AddEventActivity extends AppCompatActivity {
                     hour_end = arg1;
                     minute_end = arg2;
                     showTimeEnd(arg1, arg2);
+                    showDialog(998);
                 }
             };
 

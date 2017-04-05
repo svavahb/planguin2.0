@@ -84,6 +84,17 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
+        mWeekView.setAddEventClickListener(new WeekView.AddEventClickListener() {
+            @Override
+            public void onAddEventClicked(Calendar startTime, Calendar endTime) {
+                Intent i = new Intent(ScheduleActivity.this, AddEventActivity.class);
+                i.putExtra("startTime",startTime.getTimeInMillis());
+                i.putExtra("endTime", endTime.getTimeInMillis());
+                startActivity(i);
+                overridePendingTransition(0, 0);
+            }
+        });
+
         // Set an action when any event is clicked.
         mWeekView.setOnEventClickListener(mEventClickListener);
 
