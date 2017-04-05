@@ -69,8 +69,8 @@ public class CreateGroupActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.invitation_button:
-                i = new Intent(this, InvitationActivity.class);
+            case R.id.find_friends_button:
+                i = new Intent(this, SearchActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;

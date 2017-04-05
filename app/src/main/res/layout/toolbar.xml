@@ -74,11 +74,11 @@
                 android:onClick="onClick" />
 
             <Button
-                android:id="@+id/invitation_button"
+                android:id="@+id/find_friends_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:drawableEnd="@drawable/invite"
+                android:drawableEnd="@drawable/search"
                 android:onClick="onClick" />
 
         </LinearLayout>
