@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity{
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
+    private EditText mSchoolView;
     private View mProgressView;
     private View mLoginFormView;
     View focusView;
@@ -71,6 +72,8 @@ public class SignUpActivity extends AppCompatActivity{
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
+
+        mSchoolView = (EditText) findViewById(R.id.school);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordConfirmView = (EditText) findViewById(R.id.password_confirm);
@@ -116,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity{
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
         String passwordConfirm = mPasswordConfirmView.getText().toString();
+        String school = mSchoolView.getText().toString();
 
         cancel = false;
         focusView = null;
@@ -148,7 +152,7 @@ public class SignUpActivity extends AppCompatActivity{
             cancel = true;
         }
 
-        checkUsername(username,password,passwordConfirm);
+        checkUsername(username,password,passwordConfirm, school);
     }
 
     private boolean isPasswordValid(String password) {
@@ -156,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity{
         return password.length() > 4;
     }
 
-    private void checkUsername(final String username, final String password, final String passwordConfirm) {
+    private void checkUsername(final String username, final String password, final String passwordConfirm, final String school) {
         PlanguinRestClient.get("usernameExists/"+username, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
@@ -170,7 +174,7 @@ public class SignUpActivity extends AppCompatActivity{
                 }
                 else {
                     showProgress(true);
-                    signUp(username, password, passwordConfirm);
+                    signUp(username, password, passwordConfirm, school);
                 }
             }
 
@@ -181,10 +185,11 @@ public class SignUpActivity extends AppCompatActivity{
         });
     }
 
-    private void signUp(String username, String password, String passwordConfirm) {
+    private void signUp(String username, String password, String passwordConfirm, String school) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setSchool(school);
         user.setPasswordConfirm(passwordConfirm);
 
         Gson gson = new Gson();
