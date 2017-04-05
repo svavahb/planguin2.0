@@ -106,6 +106,18 @@ public class CompareActivity extends AppCompatActivity implements MonthLoader.Mo
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(mEventLongPressListener);
 
+        // Set action when new event is added
+        mWeekView.setAddEventClickListener(new WeekView.AddEventClickListener() {
+            @Override
+            public void onAddEventClicked(Calendar startTime, Calendar endTime) {
+                Intent i = new Intent(CompareActivity.this, AddEventActivity.class);
+                i.putExtra("startTime",startTime.getTimeInMillis());
+                i.putExtra("endTime", endTime.getTimeInMillis());
+                startActivity(i);
+                overridePendingTransition(0, 0);
+            }
+        });
+
         // Get a list of the user's friends and update the friend spinner
         PlanguinRestClient.get("getFriends/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
