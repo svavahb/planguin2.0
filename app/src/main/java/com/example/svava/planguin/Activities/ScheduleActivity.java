@@ -139,30 +139,16 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 overridePendingTransition(0, 0);
             }
         });
-
-        PlanguinRestClient.get("home/"+4+"/"+2017+"?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
-                try {
-                    allEvents.clear();
-                    Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
-                    List<ScheduleItem> scheduleItems = schedule.getItems();
-                    for (int i = 0; i < scheduleItems.size(); i++) {
-                        WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
-                        allEvents.add(event);
-                    }
-                    mWeekView.notifyDatasetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        // TODO setja current month og year
+        Calendar now = Calendar.getInstance();
+        onLoadEvents(now.get(Calendar.MONTH)+1,now.get(Calendar.YEAR));
     }
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events
+        onLoadEvents(newMonth, newYear);
+
         List<WeekViewEvent> events = new ArrayList<>();
 
         for (int i = 0; i < allEvents.size(); i++) {
@@ -170,11 +156,30 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 events.add(allEvents.get(i));
             }
         }
-        for(int i=0; i<events.size(); i++) {
-            System.out.println(events.get(i).getName());
-        }
 
         return events;
+     }
+
+     // Loads events of month, and of the months before and after
+     public void onLoadEvents(int month, int year) {
+         PlanguinRestClient.get("home/"+month+"/"+year+"?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
+             @Override
+             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
+                 try {
+                     allEvents.clear();
+                     Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
+                     List<ScheduleItem> scheduleItems = schedule.getItems();
+                     for (int i = 0; i < scheduleItems.size(); i++) {
+                         WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
+                         allEvents.add(event);
+                     }
+                     mWeekView.notifyDatasetChanged();
+
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+             }
+         });
      }
 
      public void onDeleteEvent(final WeekViewEvent event) {
