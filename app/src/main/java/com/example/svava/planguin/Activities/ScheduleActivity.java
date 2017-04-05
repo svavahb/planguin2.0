@@ -127,6 +127,11 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                                 Intent i = new Intent(ScheduleActivity.this, AddEventActivity.class);
                                 i.putExtra("isEdit",true);
                                 i.putExtra("eventId",event.getId());
+                                i.putExtra("startTime",event.getStartTime().getTimeInMillis());
+                                i.putExtra("endTime",event.getEndTime().getTimeInMillis());
+                                i.putExtra("title",event.getName());
+                                i.putExtra("description",event.getLocation());
+                                i.putExtra("color",event.getColor());
                                 startActivity(i);
                                 overridePendingTransition(0,0);
                             }
