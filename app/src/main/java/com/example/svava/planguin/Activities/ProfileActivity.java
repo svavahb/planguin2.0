@@ -70,11 +70,13 @@ public class ProfileActivity extends AppCompatActivity {
                     friendship = jsonuser.getBoolean("friendship");
 
                     userToAdd = jsonParser.parseUser(jsonuser);
+                    if(usernameToAdd.equals(loggedInUser)) {
+                        button1.setVisibility(View.GONE);
+                    }
 
                     if(friendship) {
                         button2.setVisibility(View.VISIBLE);
                     } else {
-                        button1.setVisibility(View.VISIBLE);
                         button2.setVisibility(View.GONE);
                     }
 
