@@ -147,7 +147,9 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events
-        onLoadEvents(newMonth, newYear);
+        if(allEvents.size()==0 || !containsEvents(allEvents, newYear, newMonth)) {
+            onLoadEvents(newMonth, newYear);
+        }
 
         List<WeekViewEvent> events = new ArrayList<>();
 
@@ -156,8 +158,23 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 events.add(allEvents.get(i));
             }
         }
-
         return events;
+     }
+
+     public boolean containsEvents(List<WeekViewEvent> events, int year, int month) {
+         Calendar time = events.get(0).getStartTime();
+         boolean returnvalue = false;
+
+         if(time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)==month) {
+             returnvalue = true;
+         }
+         else if (time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)+1==month) {
+             returnvalue = true;
+         }
+         else if (time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)-1==month) {
+             returnvalue = false;
+         }
+         return returnvalue;
      }
 
      // Loads events of month, and of the months before and after
