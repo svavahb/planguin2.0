@@ -134,5 +134,6 @@
     <string name="delete_event">Delete</string>
     <string name="edit_event">Edit</string>
     <string name="edit_event_button">edit event</string>
+    <string name="repeat_check">Repeat weekly for the next month?</string>
 
 </resources>

@@ -84,6 +84,12 @@
     </LinearLayout>
 
 
+    <CheckBox
+        android:id="@+id/repeat_checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/repeat_check" />
+
     <Button
         android:id="@+id/color_pick_button"
         android:layout_width="match_parent"
