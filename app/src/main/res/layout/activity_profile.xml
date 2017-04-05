@@ -11,54 +11,83 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/addFriendButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:onClick="addFriend"
+            android:text="@string/add_friend"
+            android:textColor="@color/textcolor"/>
 
         <TextView
             android:id="@+id/Username"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
-            />
-
+            android:textSize="24sp" />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp">
 
         <TextView
             android:id="@+id/textViewSchool"
-            android:layout_width="99dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="School:"
-            android:visibility="gone"/>
+            android:text="@string/school"
+            android:textSize="18sp" />
+
 
         <TextView
             android:id="@+id/profile_school"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="" />
-        <Button
-            android:id="@+id/addFriendButton"
-            android:layout_width="80dp"
-            android:layout_height="53dp"
-            android:text="Add Friend"
-            android:onClick="addFriend"
-            android:visibility="gone"/>
+            android:text=""
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/removeFriendButton"
-            android:layout_width="80dp"
-            android:layout_height="53dp"
-            android:text="Remove Friend"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
             android:onClick="deleteFriend"
+            android:text="@string/remove_friend"
+            android:textColor="@color/textcolor"
             android:visibility="gone"/>
     </LinearLayout>
 

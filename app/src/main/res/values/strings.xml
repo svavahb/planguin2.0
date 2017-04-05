@@ -135,5 +135,8 @@
     <string name="edit_event">Edit</string>
     <string name="edit_event_button">edit event</string>
     <string name="repeat_check">Repeat weekly for the next month?</string>
+    <string name="add_friend">Add friend!</string>
+    <string name="school">School:</string>
+    <string name="remove_friend">Remove friend!</string>
 
 </resources>
