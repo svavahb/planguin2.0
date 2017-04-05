@@ -124,5 +124,7 @@
     <string name="editText_search">Name</string>
     <string name="choose_start">Choose start date</string>
     <string name="choose_end">Choose end date</string>
+    <string name="choose_start_time">choose start time</string>
+    <string name="choose_end_time">choose end time</string>
 
 </resources>

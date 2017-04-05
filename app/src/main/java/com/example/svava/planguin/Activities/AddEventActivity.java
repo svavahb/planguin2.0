@@ -2,11 +2,13 @@ package com.example.svava.planguin.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.alamkanak.weekview.WeekViewEvent;
 import com.example.svava.planguin.Entities.Date;
 import com.example.svava.planguin.Entities.ScheduleItem;
 import com.example.svava.planguin.Managers.ScheduleManager;
@@ -24,11 +25,9 @@ import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
@@ -38,28 +37,30 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    public TimePicker simpleTimePicker_Start;
-    public TimePicker simpleTimePicker_End;
-
     public Button startDateButton;
     public Button endDateButton;
+    public Button startTimeButton;
+    public Button endTimeButton;
+
     public TextView startDateText;
     public TextView endDateText;
-    //public DatePicker simpleDatePicker_Start;
-    //public DatePicker simpleDatePicker_End;
+    public TextView startTimeText;
+    public TextView endTimeText;
+
     int year_start;
     int month_start;
     int day_start;
+    int hour_start;
+    int minute_start;
 
     int year_end;
     int month_end;
     int day_end;
-
+    int hour_end;
+    int minute_end;
 
     EditText myEventName;
     String  stringEventName;
-    JSONparser jsonparser = new JSONparser();
-    SharedPreferences mySharedPreferences;
     String loggedInUser;
     ScheduleManager scheduleManager;
 
@@ -83,20 +84,34 @@ public class AddEventActivity extends AppCompatActivity {
 
         startDateButton = (Button) findViewById(R.id.startDate_button);
         startDateText = (TextView) findViewById(R.id.startDate_text);
+
         endDateButton = (Button) findViewById(R.id.endDate_button);
         endDateText = (TextView) findViewById(R.id.endDate_text);
+
+        startTimeButton = (Button) findViewById(R.id.startTime_button);
+        startTimeText = (TextView) findViewById(R.id.startTime_text);
+
+        endTimeButton = (Button) findViewById(R.id.endTime_button);
+        endTimeText = (TextView) findViewById(R.id.endTime_text);
 
         Calendar today = Calendar.getInstance();
         year_start = today.get(Calendar.YEAR);
         month_start = today.get(Calendar.MONTH);
         day_start = today.get(Calendar.DAY_OF_MONTH);
+        hour_start = today.get(Calendar.HOUR_OF_DAY);
+        minute_start = today.get(Calendar.MINUTE);
 
         year_end = today.get(Calendar.YEAR);
         month_end = today.get(Calendar.MONTH);
         day_end = today.get(Calendar.DAY_OF_MONTH);
+        hour_end = today.get(Calendar.HOUR_OF_DAY);
+        minute_end = today.get(Calendar.MINUTE);
 
         showDateStart(year_start,month_start,day_start);
         showDateEnd(year_end, month_end, day_end);
+
+        showTimeStart(hour_start, minute_start);
+        showTimeEnd(hour_end, minute_end);
 
 
         startDateButton.setOnClickListener(new View.OnClickListener() {
@@ -113,23 +128,19 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        /*simpleDatePicker_Start = (DatePicker)findViewById(R.id.simpleDatePicker_Start); // initiate a date picker
-        simpleDatePicker_Start.setSpinnersShown(false);
+        startTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(997);
+            }
+        });
 
-        simpleDatePicker_End = (DatePicker)findViewById(R.id.simpleDatePicker_End); // initiate a date picker
-        simpleDatePicker_End.setSpinnersShown(false);*/
-
-        simpleTimePicker_Start = (TimePicker)findViewById(R.id.simpleTimePicker_Start); // initiate a time picker
-        simpleTimePicker_Start.setIs24HourView(true);
-        int hours_Start =simpleTimePicker_Start.getCurrentHour();
-        int minutes_Start = simpleTimePicker_Start.getCurrentMinute();
-        System.out.println(hours_Start);
-
-        simpleTimePicker_End = (TimePicker)findViewById(R.id.simpleTimePicker_End); // initiate a time picker
-        simpleTimePicker_End.setIs24HourView(true);
-        int hours_End =simpleTimePicker_End.getCurrentHour();
-        int minutes_End = simpleTimePicker_End.getCurrentMinute();
-        System.out.println(hours_End);
+        endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(996);
+            }
+        });
     }
 
     private void showDateStart(int year, int month, int day) {
@@ -142,6 +153,14 @@ public class AddEventActivity extends AppCompatActivity {
                 .append(month+1).append("/").append(year));
     }
 
+    private void showTimeStart(int hour, int minute) {
+        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute));
+    }
+
+    private void showTimeEnd(int hour, int minute) {
+        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute));
+    }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
@@ -151,6 +170,12 @@ public class AddEventActivity extends AppCompatActivity {
         }
         if (id==998) {
             return new DatePickerDialog(this, myEndDateListener, year_end, month_end, day_end);
+        }
+        if (id==997) {
+            return new TimePickerDialog(this, myStartTimeListener, hour_start, minute_start, true);
+        }
+        if (id==996) {
+            return new TimePickerDialog(this, myEndTimeListener, hour_end, minute_end, true);
         }
         return null;
     }
@@ -187,6 +212,28 @@ public class AddEventActivity extends AppCompatActivity {
                 }
             };
 
+    private TimePickerDialog.OnTimeSetListener myStartTimeListener = new
+            TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker arg0,
+                                      int arg1, int arg2) {
+                    hour_start = arg1;
+                    minute_start = arg2;
+                    showTimeStart(arg1, arg2);
+                }
+            };
+
+    private TimePickerDialog.OnTimeSetListener myEndTimeListener = new
+            TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker arg0,
+                                      int arg1, int arg2) {
+                    hour_end = arg1;
+                    minute_end = arg2;
+                    showTimeEnd(arg1, arg2);
+                }
+            };
+
     private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){
         ScheduleItem scheduleItem = new ScheduleItem();
         scheduleItem.setTitle(title);
@@ -219,28 +266,28 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public Date getStartTime(){
-        int hours_Start =simpleTimePicker_Start.getCurrentHour();
-        int minutes_Start = simpleTimePicker_Start.getCurrentMinute();
+        int hours = hour_start;
+        int minutes = hour_start;
         int year = year_start;
         int month = month_start;
         int day = day_start;
 
         System.out.println("start: "+day+"/"+month+"/"+year);
-        Date start = new Date(year, month, day, hours_Start, minutes_Start);
+        Date start = new Date(year, month, day, hours, minutes);
 
         return start;
     }
 
     public Date getEndTime(){
 
-        int hours_End =simpleTimePicker_End.getCurrentHour();
-        int minutes_End = simpleTimePicker_End.getCurrentMinute();
+        int hours = hour_end;
+        int minutes = minute_end;
         int year = year_end;
         int month = month_end;
         int day = day_end;
 
         System.out.println("end: "+day+"/"+month+"/"+year);
-        Date end = new Date(year, month, day, hours_End, minutes_End);
+        Date end = new Date(year, month, day, hours, minutes);
 
         return end;
     }

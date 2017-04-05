@@ -31,16 +31,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="142dp"
         android:orientation="horizontal">
 
-        <TimePicker
-            android:id="@+id/simpleTimePicker_Start"
-            android:layout_width="166dp"
-            android:layout_height="144dp"
-            android:scaleX="0.9"
-            android:scaleY="0.9"
-            android:timePickerMode="spinner" />
+        <LinearLayout
+            android:layout_width="199dp"
+            android:layout_height="174dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/startTime_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choose_start_time"
+                android:layout_gravity="center"
+                android:background="@drawable/button_style"/>
+
+            <TextView
+                android:id="@+id/startTime_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:layout_weight="1.24"
+                android:gravity="center"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/choose_start"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="@drawable/button_style"/>
 
             <TextView
                 android:id="@+id/startDate_text"
@@ -75,19 +93,36 @@
         android:text="@string/endTime" />
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="141dp"
         android:orientation="horizontal">
 
-        <TimePicker
-            android:id="@+id/simpleTimePicker_End"
-            android:layout_width="166dp"
-            android:layout_height="144dp"
-            android:scaleX="0.9"
-            android:scaleY="0.9"
-            android:timePickerMode="spinner" />
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/endTime_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choose_end_time"
+                android:layout_gravity="center"
+                android:background="@drawable/button_style"/>
+
+            <TextView
+                android:id="@+id/endTime_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:layout_weight="1.24"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,20 +133,22 @@
                 android:id="@+id/endDate_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/choose_end"
-                android:layout_gravity="center"/>
+                android:background="@drawable/button_style"/>
 
             <TextView
                 android:id="@+id/endDate_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text=""
                 android:layout_weight="1.24"
                 android:gravity="center"
+                android:text=""
                 android:textSize="20sp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <Button
@@ -126,6 +163,5 @@
         android:onClick="onClick"
         android:text="@string/submitevent_button"
         android:textColor="@color/textcolor" />
-
 
 </LinearLayout>
