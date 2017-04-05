@@ -42,8 +42,6 @@ public class AddEventActivity extends AppCompatActivity {
     public Button startTimeButton;
     public Button endTimeButton;
 
-    public TextView startDateText;
-    public TextView endDateText;
     public TextView startTimeText;
     public TextView endTimeText;
 
@@ -89,10 +87,8 @@ public class AddEventActivity extends AppCompatActivity {
         myEventName =(EditText)findViewById(R.id.eventName);
 
         startDateButton = (Button) findViewById(R.id.startDate_button);
-        startDateText = (TextView) findViewById(R.id.startDate_text);
 
         endDateButton = (Button) findViewById(R.id.endDate_button);
-        endDateText = (TextView) findViewById(R.id.endDate_text);
 
         startTimeButton = (Button) findViewById(R.id.startTime_button);
         startTimeText = (TextView) findViewById(R.id.startTime_text);
@@ -137,26 +133,8 @@ public class AddEventActivity extends AppCompatActivity {
             minute_end = end.get(Calendar.MINUTE);
         }
 
-        showDateStart(year_start,month_start,day_start);
-        showDateEnd(year_end, month_end, day_end);
-
-        showTimeStart(hour_start, minute_start);
-        showTimeEnd(hour_end, minute_end);
-
-
-        /*startDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(999);
-            }
-        });
-
-        endDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(998);
-            }
-        });*/
+        showTimeStart(hour_start, minute_start, day_start, month_start, year_start);
+        showTimeEnd(hour_end, minute_end, day_end, month_end, year_end);
 
         startTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,22 +151,14 @@ public class AddEventActivity extends AppCompatActivity {
         });
     }
 
-    private void showDateStart(int year, int month, int day) {
-        startDateText.setText(new StringBuilder().append(day).append("/")
+    private void showTimeStart(int hour, int minute, int day, int month, int year) {
+        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
-    private void showDateEnd(int year, int month, int day) {
-        endDateText.setText(new StringBuilder().append(day).append("/")
+    private void showTimeEnd(int hour, int minute, int day, int month, int year) {
+        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
-    }
-
-    private void showTimeStart(int hour, int minute) {
-        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute));
-    }
-
-    private void showTimeEnd(int hour, int minute) {
-        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute));
     }
 
     @Override
@@ -222,7 +192,7 @@ public class AddEventActivity extends AppCompatActivity {
                     year_start = arg1;
                     month_start = arg2;
                     day_start = arg3;
-                    showDateStart(arg1, arg2+1, arg3);
+                    showTimeStart(hour_start, minute_start, arg1, arg2+1, arg3);
 
                 }
             };
@@ -239,7 +209,7 @@ public class AddEventActivity extends AppCompatActivity {
                     year_end = arg1;
                     month_end = arg2;
                     day_end = arg3;
-                    showDateEnd(arg1, arg2+1, arg3);
+                    showTimeEnd(hour_end, minute_end, arg1, arg2+1, arg3);
                 }
             };
 
@@ -250,7 +220,6 @@ public class AddEventActivity extends AppCompatActivity {
                                       int arg1, int arg2) {
                     hour_start = arg1;
                     minute_start = arg2;
-                    showTimeStart(arg1, arg2);
                     showDialog(999);
                 }
             };
@@ -262,7 +231,6 @@ public class AddEventActivity extends AppCompatActivity {
                                       int arg1, int arg2) {
                     hour_end = arg1;
                     minute_end = arg2;
-                    showTimeEnd(arg1, arg2);
                     showDialog(998);
                 }
             };
