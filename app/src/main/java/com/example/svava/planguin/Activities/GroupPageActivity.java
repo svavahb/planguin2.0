@@ -20,6 +20,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,12 +96,30 @@ public class GroupPageActivity extends AppCompatActivity {
         });
     }
 
+    public void onDeleteGroup(String grpName) {
+        PlanguinRestClient.get("deleteGroup/"+grpName, new RequestParams(), new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                System.out.println("group deleted");
+                Intent i = new Intent(GroupPageActivity.this, GroupListActivity.class);
+                startActivity(i);
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject json) {
+                System.out.println(e+" "+json);
+            }
+        });
+    }
+
     public void onClick(View v) {
 
         Intent i;
         int id = v.getId();
 
         switch(id){
+            case R.id.delete_group_button:
+                onDeleteGroup(currentGroup);
+                break;
             case R.id.compare_button:
                 i = new Intent(this, CompareActivity.class);
                 startActivity(i);

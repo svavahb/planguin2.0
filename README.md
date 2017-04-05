@@ -7,9 +7,7 @@ TODO
 - skipta milli 1/3/7 dagar
 - notandi velur hourheight?
 - validate date/time í addevent
-- delete group
 - delete friend
-- delete event
 - edit event
 - filters
 - sýna lit eftir að hann er valinn?
