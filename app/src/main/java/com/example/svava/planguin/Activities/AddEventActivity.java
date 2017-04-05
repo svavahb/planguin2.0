@@ -76,7 +76,9 @@ public class AddEventActivity extends AppCompatActivity {
     List<String> filters = new ArrayList<>();
 
     EditText myEventName;
+    EditText myEventDesc;
     String  stringEventName;
+    String stringEventDescription;
     String loggedInUser;
     ScheduleManager scheduleManager;
     CheckBox checkboxRepeat;
@@ -152,6 +154,7 @@ public class AddEventActivity extends AppCompatActivity {
 
         // Find buttons and text views
         myEventName =(EditText)findViewById(R.id.eventName);
+        myEventDesc =(EditText)findViewById(R.id.eventDesc);
 
         startTimeButton = (Button) findViewById(R.id.startTime_button);
         startTimeText = (TextView) findViewById(R.id.startTime_text);
@@ -304,7 +307,7 @@ public class AddEventActivity extends AppCompatActivity {
                     year_start = arg1;
                     month_start = arg2;
                     day_start = arg3;
-                    showTimeStart(hour_start, minute_start, arg1, arg2+1, arg3);
+                    showTimeStart(hour_start, minute_start, arg3, arg2, arg1);
                 }
             };
 
@@ -316,7 +319,7 @@ public class AddEventActivity extends AppCompatActivity {
                     year_end = arg1;
                     month_end = arg2;
                     day_end = arg3;
-                    showTimeEnd(hour_end, minute_end, arg1, arg2+1, arg3);
+                    showTimeEnd(hour_end, minute_end, arg3, arg2, arg1);
                 }
             };
 
@@ -384,6 +387,8 @@ public class AddEventActivity extends AppCompatActivity {
         scheduleItem.setEndTime(endTime);
         scheduleItem.setColor(color);
         scheduleItem.setFilters(filters);
+        stringEventDescription = myEventDesc.getText().toString();
+        scheduleItem.setDescription(stringEventDescription);
 
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);

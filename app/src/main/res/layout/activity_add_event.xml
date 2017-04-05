@@ -23,6 +23,14 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="120dp" />
 
+    <EditText
+        android:id="@+id/eventDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Event description" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

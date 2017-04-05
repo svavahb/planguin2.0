@@ -117,7 +117,7 @@
     <string name="log_in_button">Log In!</string>
     <string name="submitevent_button">Add Event!</string>
     <string name="search_button">Search!</string>
-    <string name="add_event_button">Add A New Event</string>
+    <string name="add_event_button">Add New Event</string>
     <string name="eventName">Name</string>
     <string name="startTime">Start Time:</string>
     <string name="endTime">End Time:</string>
@@ -139,6 +139,6 @@
     <string name="school">School:</string>
     <string name="remove_friend">Remove friend!</string>
     <string name="filters">Enter filters, seperated by comma \',\'</string>
-    <string name="filter_go">go</string>
+    <string name="filter_go">Go</string>
 
 </resources>
