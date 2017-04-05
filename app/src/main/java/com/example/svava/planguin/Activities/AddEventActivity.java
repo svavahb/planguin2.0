@@ -323,6 +323,15 @@ public class AddEventActivity extends AppCompatActivity {
         return end;
     }
 
+    public boolean validateItem() {
+        if (year_end<year_start) return false;
+        else if (month_end<month_start) return false;
+        else if (day_end<day_start) return false;
+        else if (hour_end<hour_start) return false;
+        else if (minute_end<minute_start) return false;
+        else return true;
+    }
+
 
     public void onClick(View v) {
 
@@ -356,9 +365,13 @@ public class AddEventActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.submitevent_button:
-                //i = new Intent(this, ScheduleActivity.class);
-                stringEventName= myEventName.getText().toString();
-                createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                if (validateItem()) {
+                    stringEventName= myEventName.getText().toString();
+                    createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                }
+                else {
+                    myEventName.setError("End time must be after start time!");
+                }
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);
