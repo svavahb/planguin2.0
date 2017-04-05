@@ -39,6 +39,9 @@ public class ScheduleManager {
 
         WeekViewEvent event = new WeekViewEvent(item.getId(), item.getTitle(), startTime, endTime);
         event.setColor(item.getColor());
+        if (!item.getDescription().equals("null")) {
+            event.setLocation(item.getDescription());
+        }
 
         return event;
     }
