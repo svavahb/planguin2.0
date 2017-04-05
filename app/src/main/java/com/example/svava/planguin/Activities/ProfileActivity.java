@@ -70,14 +70,17 @@ public class ProfileActivity extends AppCompatActivity {
                     friendship = jsonuser.getBoolean("friendship");
 
                     userToAdd = jsonParser.parseUser(jsonuser);
-                    if(usernameToAdd.equals(loggedInUser)) {
-                        button1.setVisibility(View.GONE);
-                    }
+
 
                     if(friendship && !(usernameToAdd.equals(loggedInUser))) {
                         button2.setVisibility(View.VISIBLE);
+                        button1.setVisibility(View.GONE);
                     } else {
                         button2.setVisibility(View.GONE);
+                        button1.setVisibility(View.VISIBLE);
+                    }
+                    if(usernameToAdd.equals(loggedInUser)) {
+                        button1.setVisibility(View.GONE);
                     }
 
                     TextView textViewSchool = (TextView) findViewById(R.id.textViewSchool);
@@ -190,8 +193,8 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.invitation_button:
-                i = new Intent(this, InvitationActivity.class);
+            case R.id.find_friends_button:
+                i = new Intent(this, SearchActivity.class);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
