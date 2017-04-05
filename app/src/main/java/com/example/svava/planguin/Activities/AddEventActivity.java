@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,7 +32,9 @@ import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -66,11 +69,13 @@ public class AddEventActivity extends AppCompatActivity {
     int editColor;
     String editTitle;
     String editDescription;
+    String checkboxUrl = "createItem";
 
     EditText myEventName;
     String  stringEventName;
     String loggedInUser;
     ScheduleManager scheduleManager;
+    CheckBox checkboxRepeat;
 
 
     @Override
@@ -92,6 +97,18 @@ public class AddEventActivity extends AppCompatActivity {
         editTitle = getIntent().getStringExtra("title");
         editDescription = getIntent().getStringExtra("description");
 
+        colorPickButton = (Button) findViewById(R.id.color_pick_button);
+
+        checkboxRepeat =(CheckBox) findViewById(R.id.repeat_checkBox);
+        if(!checkboxRepeat.isChecked()){
+            checkboxUrl = "createMultipleItems";
+            System.out.println("checked");
+        }
+        else{
+            checkboxUrl = "createItem";
+            System.out.println("Not checked");
+        }
+
         addEventButton = (Button) findViewById(R.id.submitevent_button);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +120,7 @@ public class AddEventActivity extends AppCompatActivity {
                         editScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime(), eventId);
                     }
                     else {
-                        createScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime());
+                        createScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime(),checkboxUrl);
                     }
                 } else {
                     myEventName.setError("End time must be after start time!");
@@ -128,9 +145,10 @@ public class AddEventActivity extends AppCompatActivity {
         endTimeButton = (Button) findViewById(R.id.endTime_button);
         endTimeText = (TextView) findViewById(R.id.endTime_text);
 
-        colorPickButton = (Button) findViewById(R.id.color_pick_button);
 
-        // Initialize the text views to today or the time gotten from the intent
+
+
+            // Initialize the text views to today or the time gotten from the intent
         if (startMillis==0) {
             Calendar today = Calendar.getInstance();
             year_start = today.get(Calendar.YEAR);
@@ -343,7 +361,7 @@ public class AddEventActivity extends AppCompatActivity {
         );
     }
 
-    private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){
+    private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime ,String url ){
         ScheduleItem scheduleItem = new ScheduleItem();
         scheduleItem.setTitle(title);
         startTime.setMonth(startTime.getMonth()+1);
@@ -351,6 +369,11 @@ public class AddEventActivity extends AppCompatActivity {
         endTime.setMonth(endTime.getMonth()+1);
         scheduleItem.setEndTime(endTime);
         scheduleItem.setColor(color);
+        List<String> filters = new ArrayList<>();
+        filters.add("hæ");
+        filters.add("jo");
+        scheduleItem.setFilters(filters);
+        System.out.println("url"+url);
 
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);
@@ -358,7 +381,7 @@ public class AddEventActivity extends AppCompatActivity {
         StringEntity se = new StringEntity(json, "UTF-8");
         se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
-        PlanguinRestClient.post("createItem/"+loggedInUser,se, "application/json;charset=UTF-8", new JsonHttpResponseHandler(){
+        PlanguinRestClient.post(url+"/"+loggedInUser,se, "application/json;charset=UTF-8", new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject result){
                         System.out.println(result);

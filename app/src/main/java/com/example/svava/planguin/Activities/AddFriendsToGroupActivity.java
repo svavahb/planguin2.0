@@ -81,13 +81,13 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
         listView = (ListView) findViewById(R.id.friendlist_checklist);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        listView.setAdapter(adapter);
 
         /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(AddFriendsToGroupActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0)
+        listView.setAdapter(adapter);;
             }
         });*/
         button = (Button) findViewById(R.id.addtogroup_button);
