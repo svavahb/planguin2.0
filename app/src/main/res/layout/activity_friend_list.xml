@@ -36,7 +36,7 @@
         android:id="@+id/friendlist_list"
         android:layout_width="wrap_content"
         android:layout_height="431dp"
-        android:divider="@color/divedercolor"
+        android:divider="@android:color/transparent"
         android:dividerHeight="10dp" />
 
 </LinearLayout>

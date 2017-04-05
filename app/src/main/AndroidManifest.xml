@@ -29,7 +29,6 @@
         </activity>
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.SearchActivity"></activity>
-        <activity android:name=".Activities.InvitationActivity" />
         <activity android:name=".Activities.GroupListActivity" />
         <activity android:name=".Activities.GroupPageActivity" />
         <activity android:name=".Activities.CompareActivity" />

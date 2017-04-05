@@ -19,7 +19,9 @@
             android:id="@+id/friendlist_checklist"
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"/>
 
         <Button
             android:id="@+id/addtogroup_button"
