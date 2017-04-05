@@ -92,7 +92,7 @@ public class AddEventActivity extends AppCompatActivity {
         editTitle = getIntent().getStringExtra("title");
         editDescription = getIntent().getStringExtra("description");
 
-        addEventButton = (Button) findViewById(R.id.add_event_button);
+        addEventButton = (Button) findViewById(R.id.submitevent_button);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,7 +310,36 @@ public class AddEventActivity extends AppCompatActivity {
             };
 
     private void editScheduleItem(String loggedInUser, String title, Date startTime, Date endTime, int id) {
-        //halló
+        ScheduleItem scheduleItem = new ScheduleItem();
+        scheduleItem.setTitle(title);
+        startTime.setMonth(startTime.getMonth()+1);
+        scheduleItem.setStartTime(startTime);
+        endTime.setMonth(endTime.getMonth()+1);
+        scheduleItem.setEndTime(endTime);
+        scheduleItem.setColor(color);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(scheduleItem);
+
+        StringEntity se = new StringEntity(json, "UTF-8");
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+
+        PlanguinRestClient.post("schedule/edit/"+id,se, "application/json;charset=UTF-8", new JsonHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject result){
+                        System.out.println(result);
+
+                        Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                        Toast.makeText(AddEventActivity.this, "event created", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
+                        System.out.println(s+" "+e);
+                    }
+                }
+        );
     }
 
     private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){

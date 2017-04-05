@@ -73,10 +73,10 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        NumberPicker np = (NumberPicker) findViewById(R.id.np);
+        /*NumberPicker np = (NumberPicker) findViewById(R.id.np);
         np.setMinValue(1);
         np.setMaxValue(7);
-        np.setWrapSelectorWheel(true);
+        np.setWrapSelectorWheel(true);*/
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ScheduleActivity.this);
@@ -170,9 +170,9 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events
-        if(!containsEvents(allEvents, newYear, newMonth)) {
+        /*if(!containsEvents(allEvents, newYear, newMonth)) {
             onLoadEvents(newMonth, newYear);
-        }
+        }*/
 
         List<WeekViewEvent> events = new ArrayList<>();
 
