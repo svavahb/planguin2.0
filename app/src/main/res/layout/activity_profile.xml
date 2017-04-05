@@ -27,7 +27,8 @@
             android:background="@drawable/button_style"
             android:onClick="addFriend"
             android:text="@string/add_friend"
-            android:textColor="@color/textcolor"/>
+            android:textColor="@color/textcolor"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/Username"

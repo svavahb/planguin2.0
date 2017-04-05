@@ -74,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
                         button1.setVisibility(View.GONE);
                     }
 
-                    if(friendship) {
+                    if(friendship && !(usernameToAdd.equals(loggedInUser))) {
                         button2.setVisibility(View.VISIBLE);
                     } else {
                         button2.setVisibility(View.GONE);
