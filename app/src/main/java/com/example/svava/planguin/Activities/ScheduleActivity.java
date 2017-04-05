@@ -124,6 +124,11 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO edit event??
+                                Intent i = new Intent(ScheduleActivity.this, AddEventActivity.class);
+                                i.putExtra("isEdit",true);
+                                i.putExtra("eventId",event.getId());
+                                startActivity(i);
+                                overridePendingTransition(0,0);
                             }
                         })
                         .setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
