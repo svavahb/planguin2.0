@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
@@ -71,6 +72,12 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
+        NumberPicker np = (NumberPicker) findViewById(R.id.np);
+        np.setMinValue(1);
+        np.setMaxValue(7);
+        np.setWrapSelectorWheel(true);
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ScheduleActivity.this);
         loggedInUser = sharedPreferences.getString("username","");
@@ -163,7 +170,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events
-        if(allEvents.size()==0 || !containsEvents(allEvents, newYear, newMonth)) {
+        if(!containsEvents(allEvents, newYear, newMonth)) {
             onLoadEvents(newMonth, newYear);
         }
 
