@@ -108,7 +108,7 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
                 Intent i = new Intent(AddFriendsToGroupActivity.this, GroupPageActivity.class);
                 i.putExtra("GROUP_CLICKED",currentGroup);
                 startActivity(i);
-                Toast.makeText(AddFriendsToGroupActivity.this, "Friend added to group", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddFriendsToGroupActivity.this, "friend added to group!", Toast.LENGTH_SHORT).show();
             }
         });
     }

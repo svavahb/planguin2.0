@@ -102,7 +102,7 @@ public class GroupPageActivity extends AppCompatActivity {
                 System.out.println("group deleted");
                 Intent i = new Intent(GroupPageActivity.this, GroupListActivity.class);
                 startActivity(i);
-                Toast.makeText(GroupPageActivity.this, "Group deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GroupPageActivity.this, "group deleted!", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject json) {

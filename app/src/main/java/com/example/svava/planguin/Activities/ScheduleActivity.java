@@ -252,7 +252,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
              public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                  System.out.println("success?");
                  allEvents.remove(event);
-                 Toast.makeText(ScheduleActivity.this, "event deleted", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(ScheduleActivity.this, "event deleted!", Toast.LENGTH_SHORT).show();
                  mWeekView.notifyDatasetChanged();
              }
          });

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.User;
 import com.example.svava.planguin.Managers.ProfileManager;
@@ -102,6 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     public void addFriend(View v) {
+        Toast.makeText(ProfileActivity.this, "friend added!", Toast.LENGTH_SHORT).show();
         PlanguinRestClient.post("/addFriend/"+loggedInUser+"/"+userToAdd.getUserId(), new StringEntity("", "UTF-8"), "application/json;charset=UTF-8",  new JsonHttpResponseHandler() {
 
             @Override
@@ -130,13 +132,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void deleteFriend(View v) {
+        Toast.makeText(ProfileActivity.this, "friend deleted!", Toast.LENGTH_SHORT).show();
         PlanguinRestClient.post("/deleteFriendship/"+loggedInUser+"/"+userToAdd.getUsername(), new StringEntity("", "UTF-8"), "application/json;charset=UTF-8",  new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString){
                 // String success = jsonfriends.optString("username");
                 Log.d("deleteFriend","Success!");
-
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONArray errorResponse) {

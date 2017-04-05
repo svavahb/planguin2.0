@@ -365,7 +365,7 @@ public class AddEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
-                        Toast.makeText(AddEventActivity.this, "event created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddEventActivity.this, "event edited!", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
@@ -399,7 +399,7 @@ public class AddEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
-                        Toast.makeText(AddEventActivity.this, "event created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddEventActivity.this, "event created!", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
