@@ -6,27 +6,27 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
 import com.example.svava.planguin.Entities.Date;
 import com.example.svava.planguin.Entities.ScheduleItem;
 import com.example.svava.planguin.Managers.ScheduleManager;
 import com.example.svava.planguin.R;
-import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -37,10 +37,9 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    public Button startDateButton;
-    public Button endDateButton;
     public Button startTimeButton;
     public Button endTimeButton;
+    public Button colorPickButton;
 
     public TextView startTimeText;
     public TextView endTimeText;
@@ -56,6 +55,8 @@ public class AddEventActivity extends AppCompatActivity {
     int day_end;
     int hour_end;
     int minute_end;
+
+    int color;
 
     EditText myEventName;
     String  stringEventName;
@@ -86,15 +87,13 @@ public class AddEventActivity extends AppCompatActivity {
         // Find buttons and text views
         myEventName =(EditText)findViewById(R.id.eventName);
 
-        startDateButton = (Button) findViewById(R.id.startDate_button);
-
-        endDateButton = (Button) findViewById(R.id.endDate_button);
-
         startTimeButton = (Button) findViewById(R.id.startTime_button);
         startTimeText = (TextView) findViewById(R.id.startTime_text);
 
         endTimeButton = (Button) findViewById(R.id.endTime_button);
         endTimeText = (TextView) findViewById(R.id.endTime_text);
+
+        colorPickButton = (Button) findViewById(R.id.color_pick_button);
 
         // Initialize the text views to today or the time gotten from the intent
         if (startMillis==0) {
@@ -149,6 +148,23 @@ public class AddEventActivity extends AppCompatActivity {
                 showDialog(996);
             }
         });
+
+        final ColorPicker cp = new ColorPicker(AddEventActivity.this, 250, 250, 250);
+
+        colorPickButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cp.show();
+            }
+        });
+
+        cp.setCallback(new ColorPickerCallback() {
+            @Override
+            public void onColorChosen(@ColorInt int selectedColor) {
+                color = selectedColor;
+                cp.hide();
+            }
+        });
     }
 
     private void showTimeStart(int hour, int minute, int day, int month, int year) {
@@ -185,15 +201,10 @@ public class AddEventActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
                     year_start = arg1;
                     month_start = arg2;
                     day_start = arg3;
                     showTimeStart(hour_start, minute_start, arg1, arg2+1, arg3);
-
                 }
             };
 
@@ -202,10 +213,6 @@ public class AddEventActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
                     year_end = arg1;
                     month_end = arg2;
                     day_end = arg3;
@@ -242,6 +249,7 @@ public class AddEventActivity extends AppCompatActivity {
         scheduleItem.setStartTime(startTime);
         endTime.setMonth(endTime.getMonth()+1);
         scheduleItem.setEndTime(endTime);
+        scheduleItem.setColor(color);
 
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);

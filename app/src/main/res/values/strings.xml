@@ -127,5 +127,6 @@
     <string name="choose_start_time">choose start time</string>
     <string name="choose_end_time">choose end time</string>
     <string name="search_tip">Tip: If you press search without entering any name, you get a list of all users.</string>
+    <string name="color_pick_button">Pick a color</string>
 
 </resources>

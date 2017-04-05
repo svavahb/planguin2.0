@@ -59,7 +59,7 @@ public class JSONparser {
 
         // Parse string and int fields
         item.setId(jsonitem.optInt("id"));
-        item.setColor(jsonitem.optString("color"));
+        item.setColor(jsonitem.optInt("color"));
         item.setDescription(jsonitem.optString("description"));
         item.setLocation(jsonitem.optString("location"));
         item.setTitle(jsonitem.optString("title"));

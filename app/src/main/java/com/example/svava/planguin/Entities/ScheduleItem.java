@@ -20,7 +20,7 @@ public class ScheduleItem {
     private int weekNo;
     private int year;
     private String location;
-    private String color;
+    private int color;
     private String description;
     private List<String> filters;
 
@@ -96,11 +96,11 @@ public class ScheduleItem {
         this.location = location;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
