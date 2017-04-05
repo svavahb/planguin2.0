@@ -141,6 +141,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("deletedFriend", "success!");
                 button1.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.GONE);
             }
 
             @Override
