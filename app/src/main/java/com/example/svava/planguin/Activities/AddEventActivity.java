@@ -171,12 +171,30 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void showTimeStart(int hour, int minute, int day, int month, int year) {
-        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        startTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
     private void showTimeEnd(int hour, int minute, int day, int month, int year) {
-        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        endTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
@@ -268,6 +286,7 @@ public class AddEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
+                        Toast.makeText(AddEventActivity.this, "event created", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
@@ -304,6 +323,15 @@ public class AddEventActivity extends AppCompatActivity {
         return end;
     }
 
+    public boolean validateItem() {
+        if (year_end<year_start) return false;
+        else if (month_end<month_start) return false;
+        else if (day_end<day_start) return false;
+        else if (hour_end<hour_start) return false;
+        else if (minute_end<minute_start) return false;
+        else return true;
+    }
+
 
     public void onClick(View v) {
 
@@ -337,10 +365,13 @@ public class AddEventActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.submitevent_button:
-                //i = new Intent(this, ScheduleActivity.class);
-                stringEventName= myEventName.getText().toString();
-                createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
-                Toast.makeText(this, "event created", Toast.LENGTH_SHORT).show();
+                if (validateItem()) {
+                    stringEventName= myEventName.getText().toString();
+                    createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                }
+                else {
+                    myEventName.setError("End time must be after start time!");
+                }
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);
