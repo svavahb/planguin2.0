@@ -42,4 +42,17 @@ public class LaunchActivity extends AppCompatActivity {
         };
         timerThread.start();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(loggedInUser.isEmpty()){
+            Intent i = new Intent(LaunchActivity.this, WelcomeActivity.class);
+            startActivity(i);
+        }
+        else {
+            Intent i = new Intent(LaunchActivity.this, ScheduleActivity.class);
+            startActivity(i);
+        }
+    }
 }
