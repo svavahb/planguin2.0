@@ -84,6 +84,14 @@
     </LinearLayout>
 
 
+    <EditText
+        android:id="@+id/filters_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/filters" />
+
     <CheckBox
         android:id="@+id/repeat_checkBox"
         android:layout_width="match_parent"

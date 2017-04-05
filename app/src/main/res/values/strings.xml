@@ -138,5 +138,7 @@
     <string name="add_friend">Add friend!</string>
     <string name="school">School:</string>
     <string name="remove_friend">Remove friend!</string>
+    <string name="filters">Enter filters, seperated by comma \',\'</string>
+    <string name="filter_go">go</string>
 
 </resources>

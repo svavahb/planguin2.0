@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -50,6 +51,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     public TextView startTimeText;
     public TextView endTimeText;
+    public EditText filtersText;
 
     int year_start;
     int month_start;
@@ -70,6 +72,8 @@ public class AddEventActivity extends AppCompatActivity {
     String editTitle;
     String editDescription;
     String checkboxUrl = "createItem";
+
+    List<String> filters = new ArrayList<>();
 
     EditText myEventName;
     String  stringEventName;
@@ -100,19 +104,27 @@ public class AddEventActivity extends AppCompatActivity {
         colorPickButton = (Button) findViewById(R.id.color_pick_button);
 
         checkboxRepeat =(CheckBox) findViewById(R.id.repeat_checkBox);
-        if(!checkboxRepeat.isChecked()){
-            checkboxUrl = "createMultipleItems";
-            System.out.println("checked");
-        }
-        else{
-            checkboxUrl = "createItem";
-            System.out.println("Not checked");
-        }
 
         addEventButton = (Button) findViewById(R.id.submitevent_button);
         addEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get the filters, trim spaces
+                String filtersString = filtersText.getText().toString();
+                StringTokenizer tokenizer = new StringTokenizer(filtersString, ",");
+                while (tokenizer.hasMoreTokens()){
+                    filters.add(tokenizer.nextToken().trim());
+                }
+
+                if(checkboxRepeat.isChecked()){
+                    checkboxUrl = "createMultipleItems";
+                    System.out.println("checked");
+                }
+                else{
+                    checkboxUrl = "createItem";
+                    System.out.println("Not checked");
+                }
+
                 if (validateItem()) {
                     stringEventName = myEventName.getText().toString();
                     if(isEdit) {
@@ -133,6 +145,8 @@ public class AddEventActivity extends AppCompatActivity {
 
         // Get end time from intent
         long endMillis = getIntent().getLongExtra("endTime",0);
+
+        filtersText = (EditText) findViewById(R.id.filters_text);
 
         scheduleManager = new ScheduleManager();
 
@@ -369,11 +383,7 @@ public class AddEventActivity extends AppCompatActivity {
         endTime.setMonth(endTime.getMonth()+1);
         scheduleItem.setEndTime(endTime);
         scheduleItem.setColor(color);
-        List<String> filters = new ArrayList<>();
-        filters.add("hæ");
-        filters.add("jo");
         scheduleItem.setFilters(filters);
-        System.out.println("url"+url);
 
         Gson gson = new Gson();
         String json = gson.toJson(scheduleItem);

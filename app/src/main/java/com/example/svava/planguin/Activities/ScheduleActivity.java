@@ -12,8 +12,10 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
@@ -48,13 +50,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.svava.planguin.R.string.filters;
+
 public class ScheduleActivity extends AppCompatActivity implements MonthLoader.MonthChangeListener {
 
     ScheduleManager scheduleManager;
     JSONparser jsonparser = new JSONparser();
 
     private Button AddEventButton;
-
+    private Button FilterButton;
+    private Spinner FiltersSpinner;
 
 
     private static final int TYPE_DAY_VIEW = 1;
@@ -67,6 +72,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     WeekView.EventLongPressListener mEventLongPressListener;
     List<WeekViewEvent> allEvents;
     String loggedInUser;
+    String currentFilter;
 
 
     protected void onCreate(final Bundle savedInstanceState) {
@@ -162,7 +168,20 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                 overridePendingTransition(0, 0);
             }
         });
-        // TODO setja current month og year
+
+        currentFilter = "no filter";
+
+        FilterButton = (Button) findViewById(R.id.filter_button);
+        FilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentFilter = FiltersSpinner.getSelectedItem().toString();
+            }
+        });
+
+        FiltersSpinner = (Spinner) findViewById(R.id.filter_spinner);
+        getFilters(loggedInUser);
+
         Calendar now = Calendar.getInstance();
         onLoadEvents(now.get(Calendar.MONTH)+1,now.get(Calendar.YEAR));
     }
@@ -170,9 +189,11 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
         // Populate the week view with some events
-        /*if(!containsEvents(allEvents, newYear, newMonth)) {
-            onLoadEvents(newMonth, newYear);
-        }*/
+        if(allEvents.size()!=0) {
+            if(!containsEvents(allEvents, newYear, newMonth)) {
+                onLoadEvents(newMonth, newYear);
+            }
+        }
 
         List<WeekViewEvent> events = new ArrayList<>();
 
@@ -210,8 +231,14 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                      Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
                      scheduleItems = schedule.getItems();
                      for (int i = 0; i < scheduleItems.size(); i++) {
-                         WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
-                         allEvents.add(event);
+                         if(currentFilter.equals("no filter")) {
+                             WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
+                             allEvents.add(event);
+                         }
+                         else if (scheduleItems.get(i).getFilters().contains(currentFilter)) {
+                             WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
+                             allEvents.add(event);
+                         }
                      }
                      mWeekView.notifyDatasetChanged();
 
@@ -222,8 +249,8 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
          });
      }
 
-     public void onDeleteEvent(final WeekViewEvent event) {
-         PlanguinRestClient.get("deleteItem?itemId="+event.getId(), new RequestParams(), new JsonHttpResponseHandler(){
+    public void onDeleteEvent(final WeekViewEvent event) {
+        PlanguinRestClient.get("deleteItem?itemId="+event.getId(), new RequestParams(), new JsonHttpResponseHandler(){
              @Override
              public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                  System.out.println("success?");
@@ -232,7 +259,26 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                  mWeekView.notifyDatasetChanged();
              }
          });
-     }
+    }
+
+    public void getFilters(String loggedInUser) {
+        PlanguinRestClient.get("getFilters/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                List<String> filters = new ArrayList<>();
+                filters.add("no filter");
+                for (int i=0; i<json.length(); i++) {
+                    if(!filters.contains(json.optString(i))) {
+                        filters.add(json.optString(i));
+                    }
+                }
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(ScheduleActivity.this, android.R.layout.simple_spinner_item, filters);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                FiltersSpinner.setAdapter(spinnerAdapter);
+                spinnerAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 
     private static final String EXTRA_SCHEDULE_BUTTON = "scheduleButton";
 
