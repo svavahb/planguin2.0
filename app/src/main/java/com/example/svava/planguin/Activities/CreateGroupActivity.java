@@ -41,8 +41,6 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         GroupNameInput = (EditText) findViewById(R.id.namegroup);
 
-
-
     }
 
     public void onClick(View v) {
