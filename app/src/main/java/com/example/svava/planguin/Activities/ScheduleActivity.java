@@ -79,10 +79,6 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        /*NumberPicker np = (NumberPicker) findViewById(R.id.np);
-        np.setMinValue(1);
-        np.setMaxValue(7);
-        np.setWrapSelectorWheel(true);*/
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ScheduleActivity.this);
@@ -100,6 +96,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
+        mWeekView.goToHour(7);
 
         // Set action when new event is added
         mWeekView.setAddEventClickListener(new WeekView.AddEventClickListener() {

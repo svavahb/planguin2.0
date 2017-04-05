@@ -47,7 +47,7 @@
         android:layout_height="0dp"
         app:eventTextColor="@android:color/white"
         app:textSize="12sp"
-        app:hourHeight="50dp"
+        app:hourHeight="42dp"
         app:headerColumnPadding="8dp"
         app:headerColumnTextColor="#8f000000"
         app:headerRowPadding="12dp"
