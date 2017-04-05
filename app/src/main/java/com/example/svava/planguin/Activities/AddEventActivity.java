@@ -268,6 +268,7 @@ public class AddEventActivity extends AppCompatActivity {
                         Intent intent = new Intent(AddEventActivity.this, ScheduleActivity.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
+                        Toast.makeText(AddEventActivity.this, "event created", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject s) {
@@ -340,7 +341,6 @@ public class AddEventActivity extends AppCompatActivity {
                 //i = new Intent(this, ScheduleActivity.class);
                 stringEventName= myEventName.getText().toString();
                 createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
-                Toast.makeText(this, "event created", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);
