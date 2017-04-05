@@ -2,18 +2,14 @@ package com.example.svava.planguin.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 
-import com.example.svava.planguin.Managers.UserManager;
 import com.example.svava.planguin.R;
 
 public class LaunchActivity extends AppCompatActivity {
 
-    UserManager userManager;
     String loggedInUser;
 
     @Override

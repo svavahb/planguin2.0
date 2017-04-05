@@ -60,6 +60,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
+    List<ScheduleItem> scheduleItems;
     protected WeekView mWeekView;
     WeekView.EventClickListener mEventClickListener;
     WeekView.EventLongPressListener mEventLongPressListener;
@@ -111,21 +112,36 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
             @Override
             public void onEventLongPress(final WeekViewEvent event, RectF eventRect) {
                 new AlertDialog.Builder(ScheduleActivity.this)
-                        .setTitle("Delete event")
-                        .setMessage("Are you sure you want to delete this event?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        .setTitle(event.getName())
+                        .setMessage("Do you want to edit or delete your item?")
+                        .setPositiveButton(R.string.delete_event, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO
-                                // deleta eventinum
                                 onDeleteEvent(event);
+                                allEvents.remove(event);
                             }
                         })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.edit_event, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO edit event??
+                                Intent i = new Intent(ScheduleActivity.this, AddEventActivity.class);
+                                i.putExtra("isEdit",true);
+                                i.putExtra("eventId",event.getId());
+                                i.putExtra("startTime",event.getStartTime().getTimeInMillis());
+                                i.putExtra("endTime",event.getEndTime().getTimeInMillis());
+                                i.putExtra("title",event.getName());
+                                i.putExtra("description",event.getLocation());
+                                i.putExtra("color",event.getColor());
+                                startActivity(i);
+                                overridePendingTransition(0,0);
+                            }
+                        })
+                        .setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // do nothing
                             }
                         })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIcon(android.R.drawable.ic_dialog_info)
                         .show();
             }
         });
@@ -185,7 +201,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
                  try {
                      allEvents.clear();
                      Schedule schedule = jsonparser.parseSchedule(jsonSchedule);
-                     List<ScheduleItem> scheduleItems = schedule.getItems();
+                     scheduleItems = schedule.getItems();
                      for (int i = 0; i < scheduleItems.size(); i++) {
                          WeekViewEvent event = scheduleManager.parseItemToEvent(scheduleItems.get(i));
                          allEvents.add(event);

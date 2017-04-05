@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,7 @@ public class AddEventActivity extends AppCompatActivity {
     public Button startTimeButton;
     public Button endTimeButton;
     public Button colorPickButton;
+    public Button addEventButton;
 
     public TextView startTimeText;
     public TextView endTimeText;
@@ -59,6 +61,11 @@ public class AddEventActivity extends AppCompatActivity {
     int minute_end;
 
     int color;
+    boolean isEdit;
+    int eventId;
+    int editColor;
+    String editTitle;
+    String editDescription;
 
     EditText myEventName;
     String  stringEventName;
@@ -78,6 +85,32 @@ public class AddEventActivity extends AppCompatActivity {
             Intent i = new Intent(AddEventActivity.this, WelcomeActivity.class);
             startActivity(i);
         }
+
+        isEdit = getIntent().getBooleanExtra("isEdit",false);
+        eventId = getIntent().getIntExtra("eventId",0);
+        editColor = getIntent().getIntExtra("color",0);
+        editTitle = getIntent().getStringExtra("title");
+        editDescription = getIntent().getStringExtra("description");
+
+        addEventButton = (Button) findViewById(R.id.add_event_button);
+        addEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEdit) {
+                    stringEventName = myEventName.getText().toString();
+                    editScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime(), eventId);
+                }
+                else {
+                    if (validateItem()) {
+                        stringEventName = myEventName.getText().toString();
+                        createScheduleItem(loggedInUser, stringEventName, getStartTime(), getEndTime());
+                    } else {
+                        myEventName.setError("End time must be after start time!");
+                    }
+                }
+            }
+        });
+
         // Get start time from intent
         long startMillis = getIntent().getLongExtra("startTime",0);
 
@@ -151,7 +184,20 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        final ColorPicker cp = new ColorPicker(AddEventActivity.this, 250, 250, 250);
+        int red = 250;
+        int green = 250;
+        int blue = 250;
+
+        if(isEdit) {
+            myEventName.setText(editTitle);
+            //myEventDescription.setText(editDescription);
+            addEventButton.setText(R.string.edit_event_button);
+            red = Color.red(editColor);
+            green = Color.green(editColor);
+            blue = Color.blue(editColor);
+        }
+
+        final ColorPicker cp = new ColorPicker(AddEventActivity.this, red, green, blue);
 
         colorPickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,12 +217,30 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void showTimeStart(int hour, int minute, int day, int month, int year) {
-        startTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        startTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
     private void showTimeEnd(int hour, int minute, int day, int month, int year) {
-        endTimeText.setText(new StringBuilder().append(hour).append(":").append(minute).append(" ").append(day).append("/")
+        String hourText = ""+hour;
+        String minuteText = ""+minute;
+        if (hour<10) {
+            hourText = "0"+hourText;
+        }
+        if (minute<10) {
+            minuteText = "0"+minuteText;
+        }
+
+        endTimeText.setText(new StringBuilder().append(hourText).append(":").append(minuteText).append(" ").append(day).append("/")
                 .append(month+1).append("/").append(year));
     }
 
@@ -245,6 +309,10 @@ public class AddEventActivity extends AppCompatActivity {
                 }
             };
 
+    private void editScheduleItem(String loggedInUser, String title, Date startTime, Date endTime, int id) {
+        //halló
+    }
+
     private void createScheduleItem(String loggedInUser,String title,Date startTime,Date endTime  ){
         ScheduleItem scheduleItem = new ScheduleItem();
         scheduleItem.setTitle(title);
@@ -305,6 +373,15 @@ public class AddEventActivity extends AppCompatActivity {
         return end;
     }
 
+    public boolean validateItem() {
+        if (year_end<year_start) return false;
+        else if (month_end<month_start) return false;
+        else if (day_end<day_start) return false;
+        else if (hour_end<hour_start) return false;
+        else if (minute_end<minute_start) return false;
+        else return true;
+    }
+
 
     public void onClick(View v) {
 
@@ -338,9 +415,13 @@ public class AddEventActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 break;
             case R.id.submitevent_button:
-                //i = new Intent(this, ScheduleActivity.class);
-                stringEventName= myEventName.getText().toString();
-                createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                if (validateItem()) {
+                    stringEventName= myEventName.getText().toString();
+                    createScheduleItem(loggedInUser,stringEventName, getStartTime(),getEndTime());
+                }
+                else {
+                    myEventName.setError("End time must be after start time!");
+                }
                 break;
             default:
                 i = new Intent(this, ScheduleActivity.class);

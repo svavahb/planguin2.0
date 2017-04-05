@@ -131,4 +131,8 @@
     <string name="add_new_friend_button">Find friends</string>
     <string name="create_group_button">Create group</string>
 
+    <string name="delete_event">Delete</string>
+    <string name="edit_event">Edit</string>
+    <string name="edit_event_button">edit event</string>
+
 </resources>

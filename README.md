@@ -5,7 +5,6 @@ HBV2 project
 TODO
 - skipta milli 1/3/7 dagar
 - notandi velur hourheight?
-- validate date/time í addevent
 - delete friend
 - edit event
 - filters
@@ -13,3 +12,4 @@ TODO
 - click event (sýnir description?)
 - vista liti
 - repeated event
+- invitation -> search

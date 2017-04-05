@@ -1,6 +1,5 @@
 package com.example.svava.planguin.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -8,12 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.svava.planguin.Managers.InvitationManager;
 import com.example.svava.planguin.R;
 
 public class InvitationActivity extends AppCompatActivity {
 
-    InvitationManager invitationManager;
     String loggedInUser;
 
 
