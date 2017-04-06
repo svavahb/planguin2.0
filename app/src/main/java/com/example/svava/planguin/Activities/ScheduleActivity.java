@@ -204,22 +204,26 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
 
      public boolean containsEvents(List<WeekViewEvent> events, int year, int month) {
          Calendar time = events.get(0).getStartTime();
+         int eventMonth = time.get(Calendar.MONTH)+1;
+         System.out.println("event"+eventMonth+" núna"+month);
          boolean returnvalue = false;
 
-         if(time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)==month) {
+         if(time.get(Calendar.YEAR)==year && eventMonth==month) {
              returnvalue = true;
          }
-         else if (time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)+1==month) {
+         else if (time.get(Calendar.YEAR)==year && eventMonth+1==month) {
              returnvalue = true;
          }
-         else if (time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)-1==month) {
+         else if (time.get(Calendar.YEAR)==year && eventMonth-1==month) {
              returnvalue = true;
          }
+         System.out.println(returnvalue);
          return returnvalue;
      }
 
      // Loads events of month, and of the months before and after
      public void onLoadEvents(int month, int year) {
+         System.out.println("getting events from server");
          PlanguinRestClient.get("home/"+month+"/"+year+"?loggedInUser="+loggedInUser,new RequestParams(), new JsonHttpResponseHandler(){
              @Override
              public void onSuccess(int statusCode, Header[] headers, JSONObject jsonSchedule) {
