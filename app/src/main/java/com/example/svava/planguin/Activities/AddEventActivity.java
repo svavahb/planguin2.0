@@ -467,7 +467,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     public Date getStartTime(){
         int hours = hour_start;
-        int minutes = hour_start;
+        int minutes = minute_start;
         int year = year_start;
         int month = month_start;
         int day = day_start;
