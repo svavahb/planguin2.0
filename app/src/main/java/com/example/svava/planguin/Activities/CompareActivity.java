@@ -95,6 +95,7 @@ public class CompareActivity extends AppCompatActivity implements MonthLoader.Mo
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView_compare);
+        mWeekView.goToHour(7);
 
         // Set an action when any event is clicked.
         mWeekView.setOnEventClickListener(mEventClickListener);
