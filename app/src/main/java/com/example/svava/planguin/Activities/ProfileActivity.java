@@ -76,10 +76,13 @@ public class ProfileActivity extends AppCompatActivity {
                         button1.setVisibility(View.GONE);
                     }
 
-                    TextView textViewSchool = (TextView) findViewById(R.id.textViewSchool);
-                    if(userToAdd.getSchool()!= "null") {
-                        textViewSchool.setVisibility(View.VISIBLE);
-                        textViewSchool.setText(userToAdd.getSchool());
+
+                    TextView textViewSchool = (TextView) findViewById(R.id.profile_school);
+                    TextView textViewSchool2 = (TextView) findViewById(R.id.textViewSchool);
+                    textViewSchool.setText(userToAdd.getSchool());
+                    if(userToAdd.getSchool().equals("null")) {
+                        textViewSchool.setVisibility(View.GONE);
+                        textViewSchool2.setVisibility(View.GONE);
                     }
 
                 } catch (JSONException e) {

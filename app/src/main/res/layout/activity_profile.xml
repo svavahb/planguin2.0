@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="@string/school"
             android:textSize="18sp"
-            android:visibility="gone"/>
+            />
 
 
         <TextView
