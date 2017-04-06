@@ -11,14 +11,18 @@ import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.loopj.android.http.RequestParams;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
 import com.example.svava.planguin.Entities.Date;
@@ -30,6 +34,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,6 +57,8 @@ public class AddEventActivity extends AppCompatActivity {
     public TextView startTimeText;
     public TextView endTimeText;
     public EditText filtersText;
+
+    private Spinner FiltersSpinner;
 
     int year_start;
     int month_start;
@@ -250,6 +257,30 @@ public class AddEventActivity extends AppCompatActivity {
 
             }
         });
+
+        FiltersSpinner = (Spinner) findViewById(R.id.filter_spinner_add);
+        getFilters(loggedInUser);
+
+        FiltersSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selItem = parent.getItemAtPosition(position).toString();
+                if(!selItem.equals("")) {
+                    String text = filtersText.getText().toString();
+                    if (text.equals("")) {
+                        filtersText.setText(new StringBuilder().append(selItem));
+                    }
+                    else {
+                        filtersText.setText(new StringBuilder().append(text).append(",").append(selItem));
+                    }
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
     }
 
     private void showTimeStart(int hour, int minute, int day, int month, int year) {
@@ -344,6 +375,26 @@ public class AddEventActivity extends AppCompatActivity {
                     showDialog(998);
                 }
             };
+
+
+    public void getFilters(String loggedInUser) {
+        PlanguinRestClient.get("getFilters/"+loggedInUser, new RequestParams(), new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                List<String> filters = new ArrayList<>();
+                filters.add("");
+                for (int i=0; i<json.length(); i++) {
+                    if(!filters.contains(json.optString(i))) {
+                        filters.add(json.optString(i));
+                    }
+                }
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(AddEventActivity.this, android.R.layout.simple_spinner_item, filters);
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                FiltersSpinner.setAdapter(spinnerAdapter);
+                spinnerAdapter.notifyDataSetChanged();
+            }
+        });
+    }
 
     private void editScheduleItem(String loggedInUser, String title, Date startTime, Date endTime, int id) {
         ScheduleItem scheduleItem = new ScheduleItem();

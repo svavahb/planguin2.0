@@ -94,15 +94,28 @@
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/filters_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:hint="@string/filters"
-        android:inputType="text" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/filters_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/filters"
+            android:inputType="text" />
+
+        <Spinner
+            android:id="@+id/filter_spinner_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/repeat_checkBox"
