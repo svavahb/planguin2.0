@@ -8,13 +8,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.svava.planguin.Entities.User;
-import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.JSONparser;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
@@ -25,14 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
-
-import static android.R.attr.button;
-import static android.R.attr.visibility;
 
 public class ProfileActivity extends AppCompatActivity {
     String loggedInUser;

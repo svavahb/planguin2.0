@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,11 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class AddFriendsToGroupActivity extends AppCompatActivity{
 
-    ProfileManager profileManager;
     Button button;
     ListView listView;
     String currentGroup;
@@ -154,11 +150,6 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 break;
-            /*case R.id.addtogroup_button:
-                i = new Intent(this, GroupPageActivity.class);
-                startActivity(i);
-                overridePendingTransition(0,0);
-                break;*/
             default:
                 i = new Intent(this, FriendListActivity.class);
                 startActivity(i);

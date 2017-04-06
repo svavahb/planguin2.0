@@ -1,6 +1,5 @@
 package com.example.svava.planguin.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,7 +11,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.svava.planguin.Managers.ProfileManager;
 import com.example.svava.planguin.R;
 import com.example.svava.planguin.Utils.PlanguinRestClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -26,8 +24,6 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 public class FriendListActivity extends AppCompatActivity {
-
-    ProfileManager profileManager;
 
     List<String> friends = new ArrayList<>();
     ArrayAdapter<String> adapter;
