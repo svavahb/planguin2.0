@@ -196,14 +196,10 @@ public class SignUpActivity extends AppCompatActivity{
         String json = gson.toJson(user);
 
         StringEntity se = null;
-        try {
-            se = new StringEntity(json);
-        } catch (UnsupportedEncodingException e) {
-            // handle exceptions properly!
-        }
-        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        se = new StringEntity(json, "UTF-8");
+        se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
 
-        PlanguinRestClient.post("signup", se, "application/json", new JsonHttpResponseHandler() {
+        PlanguinRestClient.post("signup", se, "application/json;charset=UTF-8", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonresult){
                 mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(SignUpActivity.this);
