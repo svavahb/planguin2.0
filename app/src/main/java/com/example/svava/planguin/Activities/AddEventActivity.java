@@ -265,7 +265,7 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selItem = parent.getItemAtPosition(position).toString();
-                if(!selItem.equals("")) {
+                if(!selItem.equals("Choose filter")) {
                     String text = filtersText.getText().toString();
                     if (text.equals("")) {
                         filtersText.setText(new StringBuilder().append(selItem));
@@ -382,7 +382,7 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 List<String> filters = new ArrayList<>();
-                filters.add("");
+                filters.add("Choose filter");
                 for (int i=0; i<json.length(); i++) {
                     if(!filters.contains(json.optString(i))) {
                         filters.add(json.optString(i));
