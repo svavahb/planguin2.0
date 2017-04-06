@@ -73,6 +73,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
     List<WeekViewEvent> allEvents;
     String loggedInUser;
     String currentFilter;
+    Calendar now;
 
 
     protected void onCreate(final Bundle savedInstanceState) {
@@ -168,19 +169,20 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
 
         currentFilter = "no filter";
 
+        now = Calendar.getInstance();
+        onLoadEvents(now.get(Calendar.MONTH)+1,now.get(Calendar.YEAR));
+
         FilterButton = (Button) findViewById(R.id.filter_button);
         FilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentFilter = FiltersSpinner.getSelectedItem().toString();
+                onLoadEvents(now.get(Calendar.MONTH)+1,now.get(Calendar.YEAR));
             }
         });
 
         FiltersSpinner = (Spinner) findViewById(R.id.filter_spinner);
         getFilters(loggedInUser);
-
-        Calendar now = Calendar.getInstance();
-        onLoadEvents(now.get(Calendar.MONTH)+1,now.get(Calendar.YEAR));
     }
 
     @Override

@@ -51,9 +51,13 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
             startActivity(i);
         }
 
-
-
         currentGroup = getIntent().getStringExtra("currentGroup");
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_multiple_choice, friends);
+        listView = (ListView) findViewById(R.id.friendlist_checklist);
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         PlanguinRestClient.get("getFriendsNotInGroup/"+loggedInUser+"/"+currentGroup, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
@@ -71,21 +75,6 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
             }
         });
 
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, friends);
-
-        listView = (ListView) findViewById(R.id.friendlist_checklist);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Intent intent = new Intent(AddFriendsToGroupActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0)
-        listView.setAdapter(adapter);;
-            }
-        });*/
         button = (Button) findViewById(R.id.addtogroup_button);
         button.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,17 +90,19 @@ public class AddFriendsToGroupActivity extends AppCompatActivity{
                 for (int i=0; i<selectedItems.size(); i++) {
                     addFriendToGroup(selectedItems.get(i),currentGroup);
                 }
-                Intent i = new Intent(AddFriendsToGroupActivity.this, GroupPageActivity.class);
-                i.putExtra("GROUP_CLICKED",currentGroup);
-                startActivity(i);
-                Toast.makeText(AddFriendsToGroupActivity.this, "friend added to group!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void addFriendToGroup(String friendname, String groupname) {
         PlanguinRestClient.get("addToGroup/"+groupname+"/"+friendname, new RequestParams(), new JsonHttpResponseHandler(){
-
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                Intent i = new Intent(AddFriendsToGroupActivity.this, GroupPageActivity.class);
+                i.putExtra("GROUP_CLICKED",currentGroup);
+                startActivity(i);
+                Toast.makeText(AddFriendsToGroupActivity.this, "friend added to group!", Toast.LENGTH_SHORT).show();
+            }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject jsonerror) {
                 System.out.println(jsonerror);

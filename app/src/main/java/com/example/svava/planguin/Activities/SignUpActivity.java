@@ -131,6 +131,12 @@ public class SignUpActivity extends AppCompatActivity{
             usernameFail = false;
         }
 
+        if(!isUsernameValid(username)) {
+            mUsernameView.setError("Username contains illegal characters!");
+            focusView = mUsernameView;
+            cancel = true;
+        }
+
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -158,6 +164,18 @@ public class SignUpActivity extends AppCompatActivity{
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
+    }
+
+    private boolean isUsernameValid(String username) {
+        if(username.contains(" ")) return false;
+        else if( username.contains("/")) return false;
+        else if (username.contains("[")) return false;
+        else if (username.contains("]")) return false;
+        else if (username.contains("(")) return false;
+        else if (username.contains(")")) return false;
+        else if (username.contains("{")) return false;
+        else if (username.contains("}")) return false;
+        return true;
     }
 
     private void checkUsername(final String username, final String password, final String passwordConfirm, final String school) {
@@ -253,8 +271,5 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
-    public interface UsernameCheckResponse {
-        void onResponseReceived(boolean response);
-    }
 }
 
