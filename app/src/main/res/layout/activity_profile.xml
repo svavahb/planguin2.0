@@ -77,7 +77,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="200dp"
         android:orientation="vertical">
 
         <Button
@@ -93,7 +93,7 @@
             android:onClick="deleteFriend"
             android:text="@string/remove_friend"
             android:textColor="@color/textcolor"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>
