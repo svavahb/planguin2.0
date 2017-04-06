@@ -45,9 +45,9 @@
         <Button
             android:id="@+id/startTime_button"
             android:layout_width="156dp"
-            android:layout_height="64dp"
-            android:gravity="center"
+            android:layout_height="50dp"
             android:background="@drawable/button_style"
+            android:gravity="center"
             android:text="@string/choose_start_time"
             android:textColor="@color/textcolor" />
 
@@ -65,8 +65,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:paddingEnd="20dp"
@@ -75,7 +75,7 @@
         <Button
             android:id="@+id/endTime_button"
             android:layout_width="156dp"
-            android:layout_height="64dp"
+            android:layout_height="match_parent"
             android:background="@drawable/button_style"
             android:gravity="center"
             android:text="@string/choose_end_time"
@@ -97,24 +97,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/filters_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/filters"
-            android:inputType="text" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical">
 
         <Spinner
             android:id="@+id/filter_spinner_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/filters_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/filters"
+            android:inputType="text" />
+
     </LinearLayout>
 
     <CheckBox
@@ -132,7 +134,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/button_style"
         android:text="@string/color_pick_button"
         android:textColor="@color/textcolor" />

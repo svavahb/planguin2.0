@@ -141,5 +141,6 @@
     <string name="filters">Enter filters, seperated by comma \',\'</string>
     <string name="filter_go">Go</string>
     <string name="eventDesc">Event description</string>
+    <string name="tag_spinner">Choose filter</string>
 
 </resources>
