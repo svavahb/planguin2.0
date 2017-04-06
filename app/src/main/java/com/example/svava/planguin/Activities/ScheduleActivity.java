@@ -213,7 +213,7 @@ public class ScheduleActivity extends AppCompatActivity implements MonthLoader.M
              returnvalue = true;
          }
          else if (time.get(Calendar.YEAR)==year && time.get(Calendar.MONTH)-1==month) {
-             returnvalue = false;
+             returnvalue = true;
          }
          return returnvalue;
      }

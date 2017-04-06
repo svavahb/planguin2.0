@@ -24,8 +24,6 @@ public class JSONparser {
     public User parseUser(JSONObject json) throws JSONException {
         User user = new User();
         JSONObject userjson = json.optJSONObject("user");
-        System.out.println("í parse: "+userjson);
-        //System.out.println("í parse username: "+userjson.optString("username"));
         if (!json.isNull("user")) {
             user.setUserId(userjson.optInt("userId"));
             user.setUsername(userjson.optString("username"));
@@ -48,8 +46,6 @@ public class JSONparser {
         for (int i=0; i<jsonItems.length(); i++) {
             schedule.addItem(parseItem(jsonItems.getJSONObject(i)));
         }
-
-        System.out.println("jsonarray: "+jsonItems.length());
 
         return schedule;
     }
