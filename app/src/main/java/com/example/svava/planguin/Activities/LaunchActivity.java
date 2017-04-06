@@ -46,13 +46,29 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(loggedInUser.isEmpty()){
-            Intent i = new Intent(LaunchActivity.this, WelcomeActivity.class);
-            startActivity(i);
-        }
-        else {
-            Intent i = new Intent(LaunchActivity.this, ScheduleActivity.class);
-            startActivity(i);
-        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LaunchActivity.this);
+        loggedInUser = sharedPreferences.getString("username","");
+
+        Thread timerThread = new Thread(){
+            public void run(){
+                try{
+                    System.out.println("sleeping...");
+                    sleep(3000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                    System.out.println("wake up!");
+                    if(loggedInUser.isEmpty()){
+                        Intent i = new Intent(LaunchActivity.this, WelcomeActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        Intent i = new Intent(LaunchActivity.this, ScheduleActivity.class);
+                        startActivity(i);
+                    }
+                }
+            }
+        };
+        timerThread.start();
     }
 }
