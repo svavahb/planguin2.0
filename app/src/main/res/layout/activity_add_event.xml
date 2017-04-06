@@ -27,9 +27,11 @@
         android:id="@+id/eventDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:ems="10"
-        android:inputType="text"
-        android:hint="Event description" />
+        android:hint="@string/eventDesc"
+        android:inputType="text" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,14 +98,18 @@
         android:id="@+id/filters_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:ems="10"
-        android:inputType="text"
-        android:hint="@string/filters" />
+        android:hint="@string/filters"
+        android:inputType="text" />
 
     <CheckBox
         android:id="@+id/repeat_checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:text="@string/repeat_check" />
 
     <Button

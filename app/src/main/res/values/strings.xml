@@ -140,5 +140,6 @@
     <string name="remove_friend">Remove friend!</string>
     <string name="filters">Enter filters, seperated by comma \',\'</string>
     <string name="filter_go">Go</string>
+    <string name="eventDesc">Event description</string>
 
 </resources>
